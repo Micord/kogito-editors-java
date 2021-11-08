@@ -63,7 +63,7 @@ public class RolesListItemWidgetViewImpl implements RolesListItemWidgetView,
     @DataField("cardinalityInput")
     protected IntegerTextBox cardinality;
 
-    private boolean allowDuplicateNames = true;
+    private boolean allowDuplicateNames = false;
 
     private String previousRole;
 

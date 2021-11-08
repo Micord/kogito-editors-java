@@ -160,6 +160,11 @@ public class RolesEditorWidgetViewImpl extends Composite implements RolesEditorW
 
     @Override
     public List<KeyValueRow> getRows() {
+        binder.setModel(presenter.map(p -> p.deserialize(serializedRoles)).orElse(null));
+        for (int i = 0; i < getRowsCount(); i++) {
+            RolesListItemWidgetView widget = getWidget(i);
+            widget.setParentWidget(this);
+        }
         return binder.getModel();
     }
 
