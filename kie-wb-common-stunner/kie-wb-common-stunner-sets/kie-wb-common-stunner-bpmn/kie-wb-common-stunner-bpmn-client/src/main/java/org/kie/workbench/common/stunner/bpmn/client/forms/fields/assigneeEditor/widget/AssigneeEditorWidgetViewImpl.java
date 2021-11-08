@@ -103,6 +103,7 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
         DOMUtil.removeAllChildren(assigneeRows);
     }
 
+
     @Override
     public void add(final AssigneeListItem listItem) {
         HTMLElement tableRow = document.createElement("tr");
@@ -132,6 +133,14 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
         assigneeRowsElements.add(new Pair<>(listItem.getLiveSearchDropDown(), button));
         elements.put(listItem, tableRow);
     }
+
+    public native void exportAdd() /*-{
+        var that = this;
+        $wnd.add = $entry(function(listItem) {
+            that.@org.kie.workbench.common.stunner.bpmn.client.forms.fields.assigneeEditor.widget.AssigneeEditorWidgetViewImpl::add(*)(listItem);
+        });
+    }-*/;
+
 
     @Override
     public void enableAddButton() {
