@@ -138,7 +138,8 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
         System.out.println("log");
     }
 
-    public native void exportAdd() /*-{
+
+    public static native void exportAdd() /*-{
         var that = this;
         $wnd.addFunction = $entry(function() {
             that.@org.kie.workbench.common.stunner.bpmn.client.forms.fields.assigneeEditor.widget.AssigneeEditorWidgetViewImpl::exportAddRoles()();
