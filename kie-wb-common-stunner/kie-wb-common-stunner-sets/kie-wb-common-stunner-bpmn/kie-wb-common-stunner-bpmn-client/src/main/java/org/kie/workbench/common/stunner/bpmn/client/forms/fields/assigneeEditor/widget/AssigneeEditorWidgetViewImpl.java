@@ -134,7 +134,7 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
         elements.put(listItem, tableRow);
     }
 
-    public static void exportAddRoles(){
+    public void exportAddRoles(){
         System.out.println("log");
     }
 
