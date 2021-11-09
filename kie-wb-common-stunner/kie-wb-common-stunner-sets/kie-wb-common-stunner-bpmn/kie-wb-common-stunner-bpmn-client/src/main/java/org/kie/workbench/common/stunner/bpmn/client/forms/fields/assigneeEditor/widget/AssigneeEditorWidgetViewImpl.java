@@ -134,10 +134,15 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
         elements.put(listItem, tableRow);
     }
 
+    public static void exportAddRoles(){
+        System.out.println("log");
+    }
+
     public native void exportAdd() /*-{
         var that = this;
-        $wnd.add = $entry(function(listItem) {
-            that.@org.kie.workbench.common.stunner.bpmn.client.forms.fields.assigneeEditor.widget.AssigneeEditorWidgetViewImpl::add(*)(listItem);
+        $wnd.addFunction = $entry(function() {
+            that.@org.kie.workbench.common.stunner.bpmn.client.forms.fields.assigneeEditor.widget.AssigneeEditorWidgetViewImpl::exportAddRoles()();
+            alert("message");
         });
     }-*/;
 
