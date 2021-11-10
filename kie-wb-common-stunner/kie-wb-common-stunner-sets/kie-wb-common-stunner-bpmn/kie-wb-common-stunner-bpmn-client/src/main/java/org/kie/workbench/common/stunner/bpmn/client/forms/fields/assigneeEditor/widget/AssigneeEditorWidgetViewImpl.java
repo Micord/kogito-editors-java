@@ -28,6 +28,8 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 import org.jboss.errai.common.client.dom.Anchor;
 import org.jboss.errai.common.client.dom.Button;
 import org.jboss.errai.common.client.dom.DOMUtil;
@@ -44,8 +46,9 @@ import org.uberfire.commons.Pair;
 import org.uberfire.ext.widgets.common.client.dropdown.LiveSearchDropDown;
 
 @Templated
+@JsType(namespace = JsPackage.GLOBAL, name = "AssigneeEditorWidgetViewImpl_JSType")
 public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeEditorWidgetView,
-                                                                       FormWidget<String> {
+                                                                       FormWidget<String>{
 
     private static final String ACTION_ENABLED = "kie-wb-common-stunner-assignee-table-add-action";
     private static final String ACTION_DISABLED = "kie-wb-common-stunner-assignee-table-add-action-disabled";
@@ -76,7 +79,16 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
     @DataField
     protected TableSection assigneeRows;
 
+    private static AssigneeEditorWidgetViewImpl instance;
+
     protected List<Pair<LiveSearchDropDown<String>, Button>> assigneeRowsElements = new ArrayList<>();
+
+    public static AssigneeEditorWidgetViewImpl getInstance() {
+        if (instance == null) {
+            instance = new AssigneeEditorWidgetViewImpl();
+        }
+        return instance;
+    }
 
     @Override
     public HasValue<String> wrapped() {
@@ -103,9 +115,8 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
         DOMUtil.removeAllChildren(assigneeRows);
     }
 
-
     @Override
-    public void add(final AssigneeListItem listItem) {
+        public void add(final AssigneeListItem listItem) {
         HTMLElement tableRow = document.createElement("tr");
 
         HTMLElement liveSearchTd = document.createElement("td");
@@ -133,20 +144,6 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
         assigneeRowsElements.add(new Pair<>(listItem.getLiveSearchDropDown(), button));
         elements.put(listItem, tableRow);
     }
-
-    public void exportAddRoles(){
-        System.out.println("log");
-    }
-
-
-    public static native void exportAdd() /*-{
-        var that = this;
-        $wnd.addFunction = $entry(function() {
-            that.@org.kie.workbench.common.stunner.bpmn.client.forms.fields.assigneeEditor.widget.AssigneeEditorWidgetViewImpl::exportAddRoles()();
-            alert("message");
-        });
-    }-*/;
-
 
     @Override
     public void enableAddButton() {
