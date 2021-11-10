@@ -31,6 +31,8 @@ import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.ui.IsWidget;
 import com.google.gwt.user.client.ui.Widget;
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 import org.jboss.errai.ioc.client.api.ManagedInstance;
 import org.jboss.errai.ui.client.local.spi.TranslationService;
 import org.kie.workbench.common.stunner.bpmn.client.forms.fields.i18n.StunnerBPMNConstants;
@@ -40,6 +42,7 @@ import org.kie.workbench.common.stunner.bpmn.forms.model.AssigneeType;
 import org.uberfire.workbench.events.NotificationEvent;
 
 @Dependent
+@JsType(namespace = JsPackage.GLOBAL, name = "AssigneeEditorWidget_JSType")
 public class AssigneeEditorWidget implements IsWidget,
                                              AssigneeEditorWidgetView.Presenter {
 
@@ -60,6 +63,15 @@ public class AssigneeEditorWidget implements IsWidget,
     private int max = -1;
 
     private boolean errorNotificationsEnabled = true;
+
+    private static AssigneeEditorWidgetViewImpl instance;
+
+    public static AssigneeEditorWidgetViewImpl getInstance() {
+        if (instance == null) {
+            instance = new AssigneeEditorWidgetViewImpl();
+        }
+        return instance;
+    }
 
     @Inject
     public AssigneeEditorWidget(AssigneeEditorWidgetView view,
