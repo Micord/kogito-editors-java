@@ -95,7 +95,7 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
         addAnchorLabel.setTextContent(presenter.getAddLabel());
     }
 
-    public int MyMethod(){
+    public int getMyMethod(){
         return 42;
     }
 
