@@ -46,7 +46,6 @@ import org.uberfire.commons.Pair;
 import org.uberfire.ext.widgets.common.client.dropdown.LiveSearchDropDown;
 
 @Templated
-@JsType(namespace = JsPackage.GLOBAL, name = "AssigneeEditorWidgetViewImpl_JSType")
 public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeEditorWidgetView,
                                                                        FormWidget<String>{
 
@@ -57,6 +56,7 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
 
     private Map<AssigneeListItem, HTMLElement> elements = new HashMap<>();
     private boolean readOnly = false;
+
 
     @Inject
     private Document document;
