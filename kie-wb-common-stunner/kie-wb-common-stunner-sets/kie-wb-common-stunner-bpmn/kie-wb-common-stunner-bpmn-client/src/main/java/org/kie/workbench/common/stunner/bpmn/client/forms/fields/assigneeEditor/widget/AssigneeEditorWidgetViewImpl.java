@@ -58,6 +58,15 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
     private Map<AssigneeListItem, HTMLElement> elements = new HashMap<>();
     private boolean readOnly = false;
 
+    private static AssigneeEditorWidgetViewImpl instance;
+
+    public static AssigneeEditorWidgetViewImpl getInstance() {
+        if (instance == null) {
+            instance = new AssigneeEditorWidgetViewImpl();
+        }
+        return instance;
+    }
+
 
     @Inject
     private Document document;

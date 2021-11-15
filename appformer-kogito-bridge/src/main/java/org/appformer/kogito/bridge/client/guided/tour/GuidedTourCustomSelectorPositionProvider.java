@@ -100,6 +100,10 @@ public class GuidedTourCustomSelectorPositionProvider {
         return selector.split(separator);
     }
 
+    public int myMethodInGuided(){
+        return 19;
+    }
+
     @JsFunction
     public interface PositionProviderFunction {
 
