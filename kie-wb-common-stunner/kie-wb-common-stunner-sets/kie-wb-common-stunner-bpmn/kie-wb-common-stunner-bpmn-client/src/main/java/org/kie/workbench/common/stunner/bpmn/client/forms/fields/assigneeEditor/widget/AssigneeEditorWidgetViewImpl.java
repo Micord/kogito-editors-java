@@ -46,7 +46,7 @@ import org.uberfire.commons.Pair;
 import org.uberfire.ext.widgets.common.client.dropdown.LiveSearchDropDown;
 
 @Templated
-@JsType(namespace = JsPackage.GLOBAL, name = "JsInterop__MyMethod")
+@JsType(namespace = JsPackage.GLOBAL, name = "AssigneeEditorWidgetViewImpl_JSInterop")
 public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeEditorWidgetView,
                                                                        FormWidget<String>{
 
@@ -66,7 +66,6 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
         }
         return instance;
     }
-
 
     @Inject
     private Document document;
@@ -91,6 +90,10 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
 
     protected List<Pair<LiveSearchDropDown<String>, Button>> assigneeRowsElements = new ArrayList<>();
 
+    public String getNumber(){
+        return "20";
+    }
+
     @Override
     public HasValue<String> wrapped() {
         return presenter;
@@ -102,10 +105,6 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
 
         nameth.setTextContent(presenter.getNameHeader());
         addAnchorLabel.setTextContent(presenter.getAddLabel());
-    }
-
-    public int getMyMethod(){
-        return 42;
     }
 
     @Override
