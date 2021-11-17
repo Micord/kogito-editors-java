@@ -69,7 +69,6 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
     }
 
     @Inject
-    @JsProperty
     private Document document;
 
     @Named("th")

@@ -19,6 +19,8 @@ package org.kie.workbench.common.stunner.bpmn.client.forms.fields.assigneeEditor
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
+import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsType;
 import org.jboss.errai.common.client.dom.HTMLElement;
 import org.jboss.errai.ui.client.local.spi.TranslationService;
 import org.kie.workbench.common.stunner.bpmn.client.forms.fields.i18n.StunnerBPMNConstants;
@@ -28,6 +30,7 @@ import org.uberfire.mvp.Command;
 import org.uberfire.mvp.ParameterizedCommand;
 
 @Dependent
+@JsType(namespace = JsPackage.GLOBAL, name = "AssigneeLiveSearch_JSInterop")
 public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEditor<String>,
                                                               AssigneeLiveSearchEntryCreationEditorView.Presenter {
 
@@ -39,12 +42,22 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     private ParameterizedCommand<String> customEntryCommand;
 
+    private static AssigneeLiveSearchEntryCreationEditor instance;
+
     @Inject
     public AssigneeLiveSearchEntryCreationEditor(AssigneeLiveSearchEntryCreationEditorView view, TranslationService translationService) {
         this.view = view;
         this.translationService = translationService;
 
         view.init(this);
+    }
+
+    public AssigneeLiveSearchEntryCreationEditor getInstance(){
+        if (instance == null){
+            instance = new AssigneeLiveSearchEntryCreationEditor(instance.view,
+                instance.translationService);
+        }
+        return instance;
     }
 
     public void setCustomEntryCommand(ParameterizedCommand<String> customEntryCommand) {
@@ -69,6 +82,12 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
             customEntryCommand.execute(value);
             okCommand.execute(new LiveSearchEntry<>(value, value));
         }
+    }
+
+    @Override
+    public void myOnAccept(String value) {
+        getInstance().customEntryCommand.execute(value);
+        getInstance().okCommand.execute(new LiveSearchEntry<>(value, value));
     }
 
     @Override
