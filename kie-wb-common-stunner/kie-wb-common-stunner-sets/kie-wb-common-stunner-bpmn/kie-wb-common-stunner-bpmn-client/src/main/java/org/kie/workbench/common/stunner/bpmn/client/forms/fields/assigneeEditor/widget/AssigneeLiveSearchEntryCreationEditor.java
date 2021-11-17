@@ -19,7 +19,6 @@ package org.kie.workbench.common.stunner.bpmn.client.forms.fields.assigneeEditor
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 import org.jboss.errai.common.client.dom.HTMLElement;
