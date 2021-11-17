@@ -71,16 +71,15 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     public void onAccept() {
         String value = view.getValue();
         if (isValid(value)) {
-            customEntryCommand.execute(value);
-            okCommand.execute(new LiveSearchEntry<>(value, value));
+            this.customEntryCommand.execute(value);
+            this.okCommand.execute(new LiveSearchEntry<>(value, value));
         }
     }
 
     @Override
     public void myOnAccept(String value) {
-        AssigneeLiveSearchEntryCreationEditor instance = AssigneeLiveSearchEntryCreationEditor.this;
-        instance.customEntryCommand.execute(value);
-        instance.okCommand.execute(new LiveSearchEntry<>(value, value));
+        this.customEntryCommand.execute(value);
+        this.okCommand.execute(new LiveSearchEntry<>(value, value));
     }
 
     @Override
