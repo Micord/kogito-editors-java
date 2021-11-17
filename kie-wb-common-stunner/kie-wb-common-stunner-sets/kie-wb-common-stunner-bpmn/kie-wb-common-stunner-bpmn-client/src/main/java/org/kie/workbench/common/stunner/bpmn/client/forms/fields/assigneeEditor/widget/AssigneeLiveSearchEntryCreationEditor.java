@@ -19,6 +19,7 @@ package org.kie.workbench.common.stunner.bpmn.client.forms.fields.assigneeEditor
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
+import jsinterop.annotations.JsMethod;
 import jsinterop.annotations.JsPackage;
 import jsinterop.annotations.JsType;
 import org.jboss.errai.common.client.dom.HTMLElement;
@@ -42,6 +43,8 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     private ParameterizedCommand<String> customEntryCommand;
 
+    private String[] roles;
+
     @Inject
     public AssigneeLiveSearchEntryCreationEditor(AssigneeLiveSearchEntryCreationEditorView view, TranslationService translationService) {
         this.view = view;
@@ -58,12 +61,25 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     public void init(ParameterizedCommand<LiveSearchEntry<String>> okCommand, Command cancelCommand) {
         this.okCommand = okCommand;
         this.cancelCommand = cancelCommand;
+
+        myOnAccept(roles);
+    }
+
+    public void getterForRoles(String[] rolesFromJs){
+        roles = rolesFromJs;
+    }
+
+    @Override
+    public void myOnAccept(String[] values) {
+        for(String value:values){
+            this.customEntryCommand.execute(value);
+            this.okCommand.execute(new LiveSearchEntry<>(value, value));
+        }
     }
 
     @Override
     public void clear() {
-        String value = "TEST";
-        myOnAccept(value);
+        getterForRoles(roles);
         view.clear();
     }
 
@@ -76,11 +92,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         }
     }
 
-    @Override
-    public void myOnAccept(String value) {
-        this.customEntryCommand.execute(value);
-        this.okCommand.execute(new LiveSearchEntry<>(value, value));
-    }
+
 
     @Override
     public void onCancel() {
