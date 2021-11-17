@@ -42,7 +42,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     private ParameterizedCommand<String> customEntryCommand;
 
-    private String[] roles;
+    private String roles;
 
     @Inject
     public AssigneeLiveSearchEntryCreationEditor(AssigneeLiveSearchEntryCreationEditorView view, TranslationService translationService) {
@@ -64,16 +64,14 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         myOnAccept(roles);
     }
 
-    public void getterForRoles(String[] rolesFromJs){
+    public void getterForRoles(String rolesFromJs){
         roles = rolesFromJs;
     }
 
     @Override
-    public void myOnAccept(String[] values) {
-        for(String value:values){
-            this.customEntryCommand.execute(value);
-            this.okCommand.execute(new LiveSearchEntry<>(value, value));
-        }
+    public void myOnAccept(String value) {
+        this.customEntryCommand.execute(value);
+        this.okCommand.execute(new LiveSearchEntry<>(value, value));
     }
 
     @Override
@@ -90,8 +88,6 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
             this.okCommand.execute(new LiveSearchEntry<>(value, value));
         }
     }
-
-
 
     @Override
     public void onCancel() {
