@@ -29,6 +29,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasValue;
 import jsinterop.annotations.JsPackage;
+import jsinterop.annotations.JsProperty;
 import jsinterop.annotations.JsType;
 import org.jboss.errai.common.client.dom.Anchor;
 import org.jboss.errai.common.client.dom.Button;
@@ -68,6 +69,7 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
     }
 
     @Inject
+    @JsProperty
     private Document document;
 
     @Named("th")
