@@ -52,7 +52,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         view.init(this);
     }
 
-    public AssigneeLiveSearchEntryCreationEditor getInstance(){
+    public static AssigneeLiveSearchEntryCreationEditor getInstance(){
         if (instance == null){
             instance = new AssigneeLiveSearchEntryCreationEditor(instance.view,
                 instance.translationService);
