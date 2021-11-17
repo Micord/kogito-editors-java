@@ -42,22 +42,12 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     private ParameterizedCommand<String> customEntryCommand;
 
-    private static AssigneeLiveSearchEntryCreationEditor instance;
-
     @Inject
     public AssigneeLiveSearchEntryCreationEditor(AssigneeLiveSearchEntryCreationEditorView view, TranslationService translationService) {
         this.view = view;
         this.translationService = translationService;
 
         view.init(this);
-    }
-
-    public static AssigneeLiveSearchEntryCreationEditor getInstance(){
-        if (instance == null){
-            instance = new AssigneeLiveSearchEntryCreationEditor(instance.view,
-                instance.translationService);
-        }
-        return instance;
     }
 
     public void setCustomEntryCommand(ParameterizedCommand<String> customEntryCommand) {
@@ -72,6 +62,8 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     @Override
     public void clear() {
+        String value = "TEST";
+        myOnAccept(value);
         view.clear();
     }
 
@@ -86,8 +78,9 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     @Override
     public void myOnAccept(String value) {
-        getInstance().customEntryCommand.execute(value);
-        getInstance().okCommand.execute(new LiveSearchEntry<>(value, value));
+        AssigneeLiveSearchEntryCreationEditor instance = AssigneeLiveSearchEntryCreationEditor.this;
+        instance.customEntryCommand.execute(value);
+        instance.okCommand.execute(new LiveSearchEntry<>(value, value));
     }
 
     @Override
