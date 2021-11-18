@@ -44,6 +44,8 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     private static String roles = "1&2&3&4";
 
+    private String testRoles = "6&7&8";
+
     @Inject
     public AssigneeLiveSearchEntryCreationEditor(AssigneeLiveSearchEntryCreationEditorView view, TranslationService translationService) {
         this.view = view;
@@ -61,8 +63,10 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         this.okCommand = okCommand;
         this.cancelCommand = cancelCommand;
 
+        getterForRoles(testRoles);
         customAcceptRoles(roles);
     }
+
 
     public void getterForRoles(String rolesFromJs){
         roles = rolesFromJs;
