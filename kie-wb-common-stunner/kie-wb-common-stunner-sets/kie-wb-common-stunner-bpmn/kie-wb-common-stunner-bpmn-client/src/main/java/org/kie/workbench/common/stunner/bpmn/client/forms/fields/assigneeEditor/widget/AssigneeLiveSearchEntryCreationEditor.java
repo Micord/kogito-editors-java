@@ -16,6 +16,7 @@
 
 package org.kie.workbench.common.stunner.bpmn.client.forms.fields.assigneeEditor.widget;
 
+import java.util.ArrayList;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
@@ -42,7 +43,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     private ParameterizedCommand<String> customEntryCommand;
 
-    private String roles = "TestRole";
+    private String roles = "This,Is,My,Roles,Yeah";
 
     @Inject
     public AssigneeLiveSearchEntryCreationEditor(AssigneeLiveSearchEntryCreationEditorView view, TranslationService translationService) {
@@ -61,22 +62,32 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         this.okCommand = okCommand;
         this.cancelCommand = cancelCommand;
 
-        myOnAccept(roles);
+        customAcceptRoles(roles);
     }
 
-    public void getterForRoles(String rolesFromJs){
+    public String getterForRoles(String rolesFromJs){
         roles = rolesFromJs;
-    }
-
-    @Override
-    public void myOnAccept(String value) {
-        this.customEntryCommand.execute(value);
-        this.okCommand.execute(new LiveSearchEntry<>(value, value));
+        return roles;
     }
 
     @Override
     public void clear() {
         view.clear();
+    }
+
+    @Override
+    public void customAcceptRoles(String roles) {
+        String[] rolesArray = delimiterRoles(roles);
+        for(String role:rolesArray) {
+            if (isValid(role)) {
+                this.customEntryCommand.execute(role);
+                this.okCommand.execute(new LiveSearchEntry<>(role, role));
+            }
+        }
+    }
+
+    private String[] delimiterRoles(String roles){
+        return roles.split("\\W");
     }
 
     @Override

@@ -28,7 +28,7 @@ public interface AssigneeLiveSearchEntryCreationEditorView extends UberElement<A
 
         void onCancel();
 
-        void myOnAccept(String value);
+        void customAcceptRoles(String value);
     }
 
     void clear();
