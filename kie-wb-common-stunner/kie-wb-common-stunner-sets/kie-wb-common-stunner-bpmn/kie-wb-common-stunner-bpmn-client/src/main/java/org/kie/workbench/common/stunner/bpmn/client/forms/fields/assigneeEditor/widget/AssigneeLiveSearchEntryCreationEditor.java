@@ -42,7 +42,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     private ParameterizedCommand<String> customEntryCommand;
 
-    private static String roles;
+    private static String roles = "1&2&3&4";
 
     @Inject
     public AssigneeLiveSearchEntryCreationEditor(AssigneeLiveSearchEntryCreationEditorView view, TranslationService translationService) {
