@@ -42,7 +42,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     private ParameterizedCommand<String> customEntryCommand;
 
-    private String roles;
+    private String roles = "TestRole";
 
     @Inject
     public AssigneeLiveSearchEntryCreationEditor(AssigneeLiveSearchEntryCreationEditorView view, TranslationService translationService) {
@@ -76,7 +76,6 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     @Override
     public void clear() {
-        getterForRoles(roles);
         view.clear();
     }
 
