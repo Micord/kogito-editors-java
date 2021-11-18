@@ -44,16 +44,6 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     private static String roles = "1&2&3&4";
 
-    private static AssigneeLiveSearchEntryCreationEditor instance;
-
-    public static AssigneeLiveSearchEntryCreationEditor getInstance() {
-        if (instance == null) {
-            instance = new AssigneeLiveSearchEntryCreationEditor(instance.view,
-                instance.translationService);
-        }
-        return instance;
-    }
-
     @Inject
     public AssigneeLiveSearchEntryCreationEditor(AssigneeLiveSearchEntryCreationEditorView view, TranslationService translationService) {
         this.view = view;
