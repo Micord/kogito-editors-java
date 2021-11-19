@@ -64,13 +64,13 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         customAcceptRoles(roles);
     }
 
-    public void getterForRoles(String rolesFromJs){
-        roles = rolesFromJs;
+    public void getterForRoles(){
+        roles = RolesObjectCreator.getRoles();
     }
 
     @Override
     public void clear() {
-        getterForRoles(roles);
+        getterForRoles();
         view.clear();
     }
 
