@@ -65,8 +65,15 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     }
 
     public void getterForRoles(){
-        roles = RolesObjectCreator.getRoles();
+        roles = getUrl();
     }
+
+    public static native String getUrl()  /*-{
+        const query = window.location.search;
+        var encodeFile = query.split("?q=")[1].split("&roles=");
+        return encodeFile[1];
+
+    }-*/;
 
     @Override
     public void clear() {
