@@ -61,38 +61,29 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         this.okCommand = okCommand;
         this.cancelCommand = cancelCommand;
 
+        roles = getUrl();
         customAcceptRoles(roles);
     }
 
-    public void getterForRoles(){
-        roles = getUrl();
-    }
-
     public static native String getUrl()  /*-{
-        alert(window.location.search);
-        var rolesString = window.location.search;
-        alert(rolesString);
-        var encodeFile = rolesString.split("?q=")[1].split("&roles=");
-        alert(encodeFile[1]);
+        console.log(window.location.href);
+        var rolesString = window.location.href;
+        console.log(rolesString);
+        var encodeFile = rolesString.split("host:8080/")[1];
+        console.log(encodeFile[1]);
         return encodeFile[1];
-
     }-*/;
 
     @Override
     public void clear() {
-        getterForRoles();
         view.clear();
     }
 
     @Override
     public void customAcceptRoles(String roles) {
-        String[] rolesArray = delimiterRoles(roles);
-        for(String role:rolesArray) {
-            if (isValid(role)) {
-                this.customEntryCommand.execute(role);
-                this.okCommand.execute(new LiveSearchEntry<>(role, role));
-            }
-        }
+        this.customEntryCommand.execute(roles);
+        this.okCommand.execute(new LiveSearchEntry<>(roles, roles));
+
     }
 
     private String[] delimiterRoles(String roles){
