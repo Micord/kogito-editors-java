@@ -70,7 +70,9 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     public static native String getUrl()  /*-{
         const query = window.location.search;
+        alert(query);
         var encodeFile = query.split("?q=")[1].split("&roles=");
+        alert(encodeFile[1]);
         return encodeFile[1];
 
     }-*/;
