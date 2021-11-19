@@ -68,9 +68,9 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     public static native String getUrl()  /*-{
         var rolesString = window.location.href;
         console.log(rolesString);
-        var encodeFile = rolesString.split("host:8080/")[4];
-        console.log(encodeFile[1]);
-        return encodeFile[1];
+        var encodeFile = rolesString.split("host:8080/")[1];
+        console.log(encodeFile);
+        return encodeFile;
     }-*/;
 
     @Override
