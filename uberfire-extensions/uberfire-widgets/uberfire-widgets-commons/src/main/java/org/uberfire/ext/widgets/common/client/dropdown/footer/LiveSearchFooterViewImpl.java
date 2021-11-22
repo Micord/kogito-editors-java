@@ -81,7 +81,7 @@ public class LiveSearchFooterViewImpl implements LiveSearchFooterView,
 
     @Override
     public void showAddNewEntry(boolean show) {
-        newEntryAnchor.setHidden(!show);
+        newEntryAnchor.setHidden(show);
     }
 
     @Override
