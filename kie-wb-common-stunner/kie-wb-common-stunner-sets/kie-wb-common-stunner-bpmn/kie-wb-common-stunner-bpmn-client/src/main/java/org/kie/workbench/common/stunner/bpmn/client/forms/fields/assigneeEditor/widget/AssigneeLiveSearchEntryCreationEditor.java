@@ -65,15 +65,16 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         customAcceptRoles(roles);
     }
 
-    public static native void logArray(String rolesArray) /*-{
+    public static native void logRole(String role) /*-{
+        console.log(role);
+    }-*/;
+
+    public static native void logArray(String[] rolesArray) /*-{
         console.log(rolesArray);
     }-*/;
 
     public static native String getUrl()  /*-{
-        var roles = parent.parent.encodeFile[1];
-        console.log(parent.parent.encodeFile[1]);
-        console.log(roles);
-        return roles;
+        return parent.parent.encodeFile[1];
     }-*/;
 
     @Override
@@ -83,11 +84,15 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     @Override
     public void customAcceptRoles(String roles) {
-        logArray(roles);
-        this.customEntryCommand.execute(roles);
-        this.okCommand.execute(new LiveSearchEntry<>(roles, roles));
-
-
+        String[] rolesArray = delimiterRoles(roles);
+        logArray(rolesArray);
+        for(String role:rolesArray) {
+            if (isValid(role)) {
+                logRole(role);
+                this.customEntryCommand.execute(role);
+                this.okCommand.execute(new LiveSearchEntry<>(role, role));
+            }
+        }
     }
 
     private String[] delimiterRoles(String roles){
