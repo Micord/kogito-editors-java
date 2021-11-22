@@ -19,8 +19,6 @@ package org.kie.workbench.common.stunner.bpmn.client.forms.fields.assigneeEditor
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-import jsinterop.annotations.JsPackage;
-import jsinterop.annotations.JsType;
 import org.jboss.errai.common.client.dom.HTMLElement;
 import org.jboss.errai.ui.client.local.spi.TranslationService;
 import org.kie.workbench.common.stunner.bpmn.client.forms.fields.i18n.StunnerBPMNConstants;
@@ -30,7 +28,6 @@ import org.uberfire.mvp.Command;
 import org.uberfire.mvp.ParameterizedCommand;
 
 @Dependent
-@JsType(namespace = JsPackage.GLOBAL, name = "AssigneeLiveSearch_JSInterop")
 public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEditor<String>,
                                                               AssigneeLiveSearchEntryCreationEditorView.Presenter {
 
@@ -41,8 +38,6 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     private Command cancelCommand;
 
     private ParameterizedCommand<String> customEntryCommand;
-
-    private static String roles = "1&2&3&4";
 
     @Inject
     public AssigneeLiveSearchEntryCreationEditor(AssigneeLiveSearchEntryCreationEditorView view, TranslationService translationService) {
@@ -60,18 +55,8 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     public void init(ParameterizedCommand<LiveSearchEntry<String>> okCommand, Command cancelCommand) {
         this.okCommand = okCommand;
         this.cancelCommand = cancelCommand;
-
-        roles = getUrl();
-        customAcceptRoles(roles);
+        customAcceptRoles(getUrl());
     }
-
-    public static native void logRole(String role) /*-{
-        console.log(role);
-    }-*/;
-
-    public static native void logArray(String[] rolesArray) /*-{
-        console.log(rolesArray);
-    }-*/;
 
     public static native String getUrl()  /*-{
         return parent.parent.encodeFile[1];
@@ -85,10 +70,8 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     @Override
     public void customAcceptRoles(String roles) {
         String[] rolesArray = delimiterRoles(roles);
-        logArray(rolesArray);
         for(String role:rolesArray) {
             if (isValid(role)) {
-                logRole(role);
                 this.customEntryCommand.execute(role);
                 this.okCommand.execute(new LiveSearchEntry<>(role, role));
             }
@@ -103,8 +86,8 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     public void onAccept() {
         String value = view.getValue();
         if (isValid(value)) {
-            this.customEntryCommand.execute(value);
-            this.okCommand.execute(new LiveSearchEntry<>(value, value));
+            customEntryCommand.execute(value);
+            okCommand.execute(new LiveSearchEntry<>(value, value));
         }
     }
 
