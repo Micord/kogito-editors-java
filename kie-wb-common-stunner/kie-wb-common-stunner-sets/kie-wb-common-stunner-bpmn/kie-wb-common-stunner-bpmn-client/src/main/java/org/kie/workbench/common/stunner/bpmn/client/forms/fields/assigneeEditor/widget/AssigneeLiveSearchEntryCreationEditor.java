@@ -73,7 +73,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
             throw new RuntimeException("No available roles");
         }
         String[] rolesArray = delimiterRoles(roles);
-        for(String role:rolesArray) {
+        for(String role : rolesArray) {
             if (isValid(role)) {
                 this.customEntryCommand.execute(role);
                 this.okCommand.execute(new LiveSearchEntry<>(role, role));

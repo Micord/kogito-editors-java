@@ -81,6 +81,7 @@ public class LiveSearchFooterViewImpl implements LiveSearchFooterView,
 
     @Override
     public void showAddNewEntry(boolean show) {
+        //boolean show == disable button "add" for roles.
         newEntryAnchor.setHidden(show);
     }
 
