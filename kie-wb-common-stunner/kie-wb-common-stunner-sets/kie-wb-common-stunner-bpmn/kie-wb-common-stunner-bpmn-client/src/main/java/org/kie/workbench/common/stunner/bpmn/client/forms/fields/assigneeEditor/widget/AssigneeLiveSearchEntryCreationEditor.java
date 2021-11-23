@@ -69,6 +69,9 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     @Override
     public void customAcceptRoles(String roles) {
+        if (roles.isEmpty()){
+            throw new RuntimeException("No available roles");
+        }
         String[] rolesArray = delimiterRoles(roles);
         for(String role:rolesArray) {
             if (isValid(role)) {
