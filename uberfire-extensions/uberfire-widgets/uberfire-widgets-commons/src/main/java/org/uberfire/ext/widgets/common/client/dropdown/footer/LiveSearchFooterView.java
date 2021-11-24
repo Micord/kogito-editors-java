@@ -23,8 +23,6 @@ public interface LiveSearchFooterView extends UberElement<LiveSearchFooterView.P
 
     void showReset(boolean show);
 
-    void showAddNewEntry(boolean show);
-
     void show(HTMLElement element);
 
     void restore();

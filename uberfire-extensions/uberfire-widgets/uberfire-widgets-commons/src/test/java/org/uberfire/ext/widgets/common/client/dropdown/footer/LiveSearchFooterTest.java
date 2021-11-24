@@ -77,9 +77,6 @@ public class LiveSearchFooterTest {
         footer.showReset(true);
         verify(view).showReset(true);
 
-        footer.showAddNewEntry(true);
-        verify(view).showAddNewEntry(true);
-
         footer.restore();
         verify(view).restore();
 

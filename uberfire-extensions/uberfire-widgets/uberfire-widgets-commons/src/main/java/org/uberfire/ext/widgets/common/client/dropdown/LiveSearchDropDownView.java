@@ -144,7 +144,6 @@ public class LiveSearchDropDownView<TYPE> extends Composite
     @Override
     public void setNewInstanceEnabled(boolean enabled) {
         newItemEnabled = enabled;
-        liveSearchFooter.showAddNewEntry(enabled);
         refreshFooter();
     }
 
