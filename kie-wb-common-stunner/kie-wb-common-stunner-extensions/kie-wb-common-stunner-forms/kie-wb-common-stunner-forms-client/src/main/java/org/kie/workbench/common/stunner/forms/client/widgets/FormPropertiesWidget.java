@@ -200,7 +200,7 @@ public class FormPropertiesWidget implements IsElement,
     }
 
     private static native void logger(Element element)/*-{
-        console.log(element.getContent());
+        console.log(element.getContent().toString());
     }-*/;
 
     private void show(final String graphUuid,
