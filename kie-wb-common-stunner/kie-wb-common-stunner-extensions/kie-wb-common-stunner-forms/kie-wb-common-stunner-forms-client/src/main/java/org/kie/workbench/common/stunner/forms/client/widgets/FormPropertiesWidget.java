@@ -199,6 +199,10 @@ public class FormPropertiesWidget implements IsElement,
         return !FormFiltersProviderFactory.getFilterForDefinition(element.getUUID(), definition).isEmpty();
     }
 
+    private static native void logger(Element element)/*-{
+        console.log(element.getContent().getDefinition());
+    }-*/;
+
     private void show(final String graphUuid,
                       final Element<? extends Definition<?>> element,
                       final Command callback) {
@@ -255,6 +259,7 @@ public class FormPropertiesWidget implements IsElement,
                 lastPosition = GraphUtils.getComputedPosition((Node<?, ? extends Edge>) element);
             }
         }
+        logger(element);
     }
 
     private void show(final String graphUuid,
