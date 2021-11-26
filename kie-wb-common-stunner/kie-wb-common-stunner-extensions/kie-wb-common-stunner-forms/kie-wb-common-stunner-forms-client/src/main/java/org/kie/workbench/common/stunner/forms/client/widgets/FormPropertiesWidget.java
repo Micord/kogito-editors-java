@@ -201,8 +201,11 @@ public class FormPropertiesWidget implements IsElement,
 
     private static native void logger(String nodeId, Object type, String nodeName)/*-{
         console.log("nodeId " + nodeId);
-        console.log("type " + type);
+        console.log("type " + type.executionSet.taskName.value());
         console.log("name " + nodeName);
+
+        console.log("definition.name_0 " + type.name_0);
+        console.log("definition.executionSet.taskName.value_0 " + type.executionSet.taskName.value_0);
     }-*/;
 
     private void show(final String graphUuid,
@@ -260,6 +263,7 @@ public class FormPropertiesWidget implements IsElement,
             if (isNode(element)) {
                 lastPosition = GraphUtils.getComputedPosition((Node<?, ? extends Edge>) element);
             }
+            SelectionInfo selectionInfo = new SelectionInfo(elementUUID, definition, elementName);
             logger(elementUUID, definition, elementName);
         }
     }
