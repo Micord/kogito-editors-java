@@ -199,15 +199,13 @@ public class FormPropertiesWidget implements IsElement,
         return !FormFiltersProviderFactory.getFilterForDefinition(element.getUUID(), definition).isEmpty();
     }
 
-    private static native String logger(Element<? extends Definition<?>> element)/*-{
-        console.log("logger");
-        var elementName = element.content.definition().name
-        var a = "WebBPMTask"
+    private static native void logger(String elementName)/*-{
+        console.log(elementName);
+        var a = "WebBPMTask";
         console.log(elementName + " " + a);
         if (elementName === elementName ){
             console.log("message");
         }
-        return elementName;
     }-*/;
 
     private void show(final String graphUuid,
@@ -265,8 +263,8 @@ public class FormPropertiesWidget implements IsElement,
             if (isNode(element)) {
                 lastPosition = GraphUtils.getComputedPosition((Node<?, ? extends Edge>) element);
             }
+            logger(elementName);
         }
-        logger(element);
     }
 
     private void show(final String graphUuid,
