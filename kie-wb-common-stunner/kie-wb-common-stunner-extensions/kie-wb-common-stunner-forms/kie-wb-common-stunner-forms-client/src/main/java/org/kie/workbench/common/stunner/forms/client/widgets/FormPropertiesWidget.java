@@ -201,7 +201,6 @@ public class FormPropertiesWidget implements IsElement,
 
     private static native String logger()/*-{
         var a = "TASK"
-        alert(a);
         console.log(a);
         return a;
     }-*/;
