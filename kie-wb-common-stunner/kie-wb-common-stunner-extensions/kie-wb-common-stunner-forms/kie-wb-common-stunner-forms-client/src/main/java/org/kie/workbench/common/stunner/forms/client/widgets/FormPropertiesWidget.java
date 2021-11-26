@@ -199,8 +199,9 @@ public class FormPropertiesWidget implements IsElement,
         return !FormFiltersProviderFactory.getFilterForDefinition(element.getUUID(), definition).isEmpty();
     }
 
-    private static native String logger(Element element)/*-{
-        var elementName = element.content_0.definition.name_0;
+    private static native String logger(Element<? extends Definition<?>> element)/*-{
+        console.log("logger");
+        var elementName = element.content.definition().name
         var a = "WebBPMTask"
         console.log(elementName + " " + a);
         if (elementName === elementName ){
