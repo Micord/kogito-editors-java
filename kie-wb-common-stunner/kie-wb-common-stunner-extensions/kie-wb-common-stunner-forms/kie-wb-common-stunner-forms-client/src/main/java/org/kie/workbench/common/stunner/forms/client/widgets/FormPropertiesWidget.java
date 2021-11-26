@@ -263,7 +263,6 @@ public class FormPropertiesWidget implements IsElement,
             if (isNode(element)) {
                 lastPosition = GraphUtils.getComputedPosition((Node<?, ? extends Edge>) element);
             }
-            SelectionInfo selectionInfo = new SelectionInfo(elementUUID, definition, elementName);
             logger(elementUUID, definition, elementName);
         }
     }
