@@ -200,15 +200,15 @@ public class FormPropertiesWidget implements IsElement,
     }
 
     private static native void addUuid(String uuid)/*-{
-        parent.parent.uuidSelection = uuid;
+        parent.parent.targetProxyUuid.uuidSelection = uuid;
     }-*/;
 
     private static native void addType(String type)/*-{
-        parent.parent.typeSelection = type;
+        parent.parent.targetProxyType.typeSelection = type;
     }-*/;
 
     private static native void addName(String name)/*-{
-        parent.parent.nameSelection = name;
+        parent.parent.targetProxyName.nameSelection = name;
     }-*/;
 
     private void show(final String graphUuid,
