@@ -31,6 +31,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import com.google.gwt.core.client.JavaScriptObject;
 import org.kie.workbench.common.stunner.bpmn.definition.BPMNDefinition;
 import org.kie.workbench.common.stunner.bpmn.definition.BPMNDiagram;
 import org.kie.workbench.common.stunner.bpmn.definition.BaseAdHocSubprocess;
@@ -282,8 +283,18 @@ public class VariableUtils {
                 }
             }
         }
+        addProcessName(diagram.getGraph().getUUID());
+        addProcessId(diagram.getName());
         return variables.toString();
     }
+
+    public static native void addProcessName(String processName)/*-{
+        parent.parent.processName = processName;
+    }-*/;
+
+    public static native void addProcessId(String processId)/*-{
+        parent.parent.processId = processId;
+    }-*/;
 
     private static Optional<BiFunction<String, Pair<BPMNDefinition, Node<View<BPMNDefinition>, Edge>>, Collection<VariableUsage>>> lookupFindFunction(BPMNDefinition definition) {
         //This code should ideally be based on an iteration plus the invocation of Class.isAssignableFrom method, but unfortunately not available in GWT client classes
