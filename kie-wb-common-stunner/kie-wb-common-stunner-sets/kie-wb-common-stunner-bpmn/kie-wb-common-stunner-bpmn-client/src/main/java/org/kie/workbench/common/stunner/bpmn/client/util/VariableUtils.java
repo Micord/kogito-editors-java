@@ -282,8 +282,8 @@ public class VariableUtils {
                 }
             }
         }
-        addProcessName(diagram.getGraph().getUUID());
-        addProcessId(diagram.getName());
+        addProcessName(diagram.getName());
+        addProcessId(diagram.getGraph().getUUID());
         return variables.toString();
     }
 
