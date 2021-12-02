@@ -87,7 +87,6 @@ public class FormPropertiesWidget implements IsElement,
         formSessionHandler.setRenderer(new FormsCanvasSessionHandler.FormRenderer() {
             @Override
             public void render(String graphUuid, Element element, Command callback) {
-                destroy();
                 show(graphUuid, element, callback);
             }
 
@@ -205,7 +204,7 @@ public class FormPropertiesWidget implements IsElement,
     }-*/;
 
     private static native void addType(String type)/*-{
-        parent.parent.typeSelection = type;
+        parent.parent.targetProxyType.typeSelection = type;
     }-*/;
 
     private static native void addName(String name)/*-{
