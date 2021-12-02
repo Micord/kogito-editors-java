@@ -87,6 +87,7 @@ public class FormPropertiesWidget implements IsElement,
         formSessionHandler.setRenderer(new FormsCanvasSessionHandler.FormRenderer() {
             @Override
             public void render(String graphUuid, Element element, Command callback) {
+                clearAll(graphUuid);
                 show(graphUuid, element, callback);
             }
 
