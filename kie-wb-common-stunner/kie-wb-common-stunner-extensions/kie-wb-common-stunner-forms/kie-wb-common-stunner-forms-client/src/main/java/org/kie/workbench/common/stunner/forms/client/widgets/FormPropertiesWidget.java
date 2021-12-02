@@ -200,7 +200,7 @@ public class FormPropertiesWidget implements IsElement,
     }
 
     private static native void addUuid(String uuid)/*-{
-        parent.parent.targetProxyUuid.uuidSelection = uuid;
+        parent.parent.uuidSelection = uuid;
     }-*/;
 
     private static native void addType(String type)/*-{
