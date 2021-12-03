@@ -266,9 +266,9 @@ public class FormPropertiesWidget implements IsElement,
             if (isNode(element)) {
                 lastPosition = GraphUtils.getComputedPosition((Node<?, ? extends Edge>) element);
             }
-            addUuid(elementUUID);
             addName(elementName);
             addType(definition.toString());
+            addUuid(elementUUID);
         }
     }
 
