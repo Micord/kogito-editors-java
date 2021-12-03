@@ -128,17 +128,16 @@ public class MorphActionsToolboxFactory
                                                                                                   .setMorphDefinition(morphDefinition)
                                                                                                   .setTargetDefinitionId(targetMorphId)));
                 }
-                Object definitionElement = element.getContent().getDefinition();
-
-                getProcessName(canvasHandler.getDiagram().getName());
-                getProcessId(canvasHandler.getUuid());
-
-                getElementName(definitionUtils.getName(definitionElement));
-                getElementType(id);
-                getElementId(element.getUUID());
             }
-        }
+            Object definitionElement = element.getContent().getDefinition();
 
+            getProcessName(canvasHandler.getDiagram().getName());
+            getProcessId(canvasHandler.getUuid());
+
+            getElementName(definitionUtils.getName(definitionElement));
+            getElementType(getDefinitionManager().adapters().forDefinition().getId(definition).value());
+            getElementId(element.getUUID());
+        }
         return actions;
     }
 
