@@ -128,27 +128,41 @@ public class MorphActionsToolboxFactory
                                                                                                   .setMorphDefinition(morphDefinition)
                                                                                                   .setTargetDefinitionId(targetMorphId)));
                 }
-                String elementId = element.getUUID();
                 Object definitionElement = element.getContent().getDefinition();
-                String elementType = id;
 
-                String processId = canvasHandler.getUuid();
-                String processName = canvasHandler.getDiagram().getName();
-                String elementName = definitionUtils.getName(definitionElement);
-                addName(elementId, elementName, elementType, processId, processName);
+                getProcessName(canvasHandler.getDiagram().getName());
+                getProcessId(canvasHandler.getUuid());
+
+                getElementName(definitionUtils.getName(definitionElement));
+                getElementType(id);
+                getElementId(element.getUUID());
             }
         }
 
         return actions;
     }
 
-    private static native void addName(String elementId, String elementName, String elementType, String processId, String processName)/*-{
-        console.log("elementId" + elementId);
-        console.log("elementName" + elementName );
-        console.log("elementType" + elementType);
-        console.log("processId" + processId);
-        console.log("processName" + processName);
+    private static native void getElementId(String elementId)/*-{
+        parent.parent.proxyElementId.elementId = elementId;
     }-*/;
+
+    private static native void getElementName(String elementName)/*-{
+        parent.parent.elementName = elementName;
+    }-*/;
+
+    private static native void getElementType(String elementType)/*-{
+        parent.parent.elementType = elementType;
+    }-*/;
+
+    private static native void getProcessId(String processId)/*-{
+        parent.parent.processId = processId;
+    }-*/;
+
+    private static native void getProcessName(String processName)/*-{
+        parent.parent.processName = processName;
+    }-*/;
+
+
 
 
 

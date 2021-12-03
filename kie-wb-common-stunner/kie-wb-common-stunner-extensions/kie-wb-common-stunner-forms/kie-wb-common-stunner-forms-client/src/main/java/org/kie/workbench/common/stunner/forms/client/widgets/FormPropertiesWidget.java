@@ -199,18 +199,6 @@ public class FormPropertiesWidget implements IsElement,
         return !FormFiltersProviderFactory.getFilterForDefinition(element.getUUID(), definition).isEmpty();
     }
 
-    private static native void addUuid(String uuid)/*-{
-        parent.parent.targetProxyUuid.uuidSelection = uuid;
-    }-*/;
-
-    private static native void addType(String type)/*-{
-        parent.parent.targetProxyType.typeSelection = type;
-    }-*/;
-
-    private static native void addName(String name)/*-{
-        parent.parent.targetProxyName.nameSelection = name;
-    }-*/;
-
     private void show(final String graphUuid,
                       final Element<? extends Definition<?>> element,
                       final Command callback) {
@@ -266,9 +254,6 @@ public class FormPropertiesWidget implements IsElement,
             if (isNode(element)) {
                 lastPosition = GraphUtils.getComputedPosition((Node<?, ? extends Edge>) element);
             }
-            addName(elementName);
-            addType(definition.toString());
-            addUuid(elementUUID);
         }
     }
 
