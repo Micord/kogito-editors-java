@@ -143,15 +143,15 @@ public class MorphActionsToolboxFactory
     }
 
     private static native void getElementId(String elementId)/*-{
-        parent.parent.proxyElementId.elementId = elementId;
+        parent.parent.proxyElementId.nodeElementId = elementId;
     }-*/;
 
     private static native void getElementName(String elementName)/*-{
-        parent.parent.elementName = elementName;
+        parent.parent.nodeElementName = elementName;
     }-*/;
 
     private static native void getElementType(String elementType)/*-{
-        parent.parent.elementType = elementType;
+        parent.parent.nodeElementType = elementType;
     }-*/;
 
     private static native void getProcessId(String processId)/*-{
