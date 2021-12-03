@@ -208,7 +208,7 @@ public class FormPropertiesWidget implements IsElement,
     }-*/;
 
     private static native void addName(String name)/*-{
-        parent.parent.nameSelection = name;
+        parent.parent.targetProxyName.nameSelection = name;
     }-*/;
 
     private void show(final String graphUuid,
