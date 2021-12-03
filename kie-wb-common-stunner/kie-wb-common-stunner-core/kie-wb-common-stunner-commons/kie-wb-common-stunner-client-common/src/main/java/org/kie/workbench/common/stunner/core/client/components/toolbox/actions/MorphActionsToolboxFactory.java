@@ -127,11 +127,28 @@ public class MorphActionsToolboxFactory
                     definitionMap.forEach((targetMorphId, morphDefinition) -> actions.add(morphNodeActions.get()
                                                                                                   .setMorphDefinition(morphDefinition)
                                                                                                   .setTargetDefinitionId(targetMorphId)));
+                    String elementId = element.getUUID();
+                    String elementName = definitionUtils.getName(element.getContent());
+                    String elementType = id;
+
+                    String processId = canvasHandler.getUuid();
+                    String processName = canvasHandler.getDiagram().getName();
+                    addName(elementId, elementName, elementType, processId, processName);
                 }
             }
         }
         return actions;
     }
+
+    private static native void addName(String elementId, String elementName, String elementType, String processId, String processName)/*-{
+        console.log("elementId" + elementId);
+        console.log("elementName" + elementName );
+        console.log("elementType" + elementType);
+        console.log("processId" + processId);
+        console.log("processName" + processName);
+    }-*/;
+
+
 
     @PreDestroy
     public void destroy() {
