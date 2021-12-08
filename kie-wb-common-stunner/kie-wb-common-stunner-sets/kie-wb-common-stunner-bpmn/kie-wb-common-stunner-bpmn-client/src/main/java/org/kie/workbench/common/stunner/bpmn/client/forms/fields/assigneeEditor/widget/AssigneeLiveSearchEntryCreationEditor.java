@@ -38,7 +38,6 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     private Command cancelCommand;
 
     private ParameterizedCommand<String> customEntryCommand;
-    private String roles;
 
     @Inject
     public AssigneeLiveSearchEntryCreationEditor(AssigneeLiveSearchEntryCreationEditorView view, TranslationService translationService) {
@@ -68,13 +67,10 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         view.clear();
     }
 
-    public String getRole(){
-        return this.roles;
-    }
 
     @Override
     public void customAcceptRoles(String roles) {
-        roles = getRole();
+        roles = getUrl();
         if (roles.isEmpty()){
             throw new RuntimeException("No available roles");
         }

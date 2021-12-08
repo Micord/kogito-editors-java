@@ -142,6 +142,7 @@ public class MorphActionsToolboxFactory
     }
 
     private static native void getElementId(String elementId)/*-{
+        console.log(document.body.getAttribute("role"));
         parent.parent.proxyElementId.nodeElementId = elementId;
     }-*/;
 
