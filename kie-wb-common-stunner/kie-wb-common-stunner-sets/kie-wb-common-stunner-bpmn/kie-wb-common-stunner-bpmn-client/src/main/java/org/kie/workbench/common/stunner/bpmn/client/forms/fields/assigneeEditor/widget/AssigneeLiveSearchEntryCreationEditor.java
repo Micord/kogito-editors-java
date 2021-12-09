@@ -60,6 +60,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     public static native String getUrl()  /*-{
         alert(parent.parent.projectRoles.projectRoles);
+        alert(parent.parent.proxy.projectRoles);
         return parent.parent.projectRoles.projectRoles;
     }-*/;
 
