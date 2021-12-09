@@ -83,7 +83,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     }
 
     private String[] delimiterRoles(String roles){
-        return roles.split("\\W");
+        return roles.split("&");
     }
 
     @Override
