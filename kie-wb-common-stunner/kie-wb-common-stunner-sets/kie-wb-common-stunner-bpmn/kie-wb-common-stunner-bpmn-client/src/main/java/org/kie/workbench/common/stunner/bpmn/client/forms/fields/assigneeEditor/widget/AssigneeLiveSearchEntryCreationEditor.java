@@ -59,7 +59,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     }
 
     public static native String getUrl()  /*-{
-        return parent.parent.encodeFile[1];
+        return parent.parent.projectRoles.projectRoles;
     }-*/;
 
     @Override
