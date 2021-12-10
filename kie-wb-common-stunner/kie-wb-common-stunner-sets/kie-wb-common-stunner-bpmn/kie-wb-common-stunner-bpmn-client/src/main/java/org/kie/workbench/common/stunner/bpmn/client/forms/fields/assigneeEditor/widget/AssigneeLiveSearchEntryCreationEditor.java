@@ -73,14 +73,13 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     @Override
     public void customAcceptRoles(String roles) {
-        roles = getUrl();
+        roles = "1&2&3&4&5&6&8&9&10&11&12&13&14&15";
         if (roles.isEmpty()){
             throw new RuntimeException("No available roles");
         }
         String[] rolesArray = delimiterRoles(roles);
         for(String role : rolesArray) {
             if (isValid(role)) {
-                alertAcceptRole(role);
                 this.customEntryCommand.execute(role);
                 this.okCommand.execute(new LiveSearchEntry<>(role, role));
             }
