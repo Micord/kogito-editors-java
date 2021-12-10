@@ -62,6 +62,10 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         return parent.parent.projectRoles.projectRoles;
     }-*/;
 
+    public static native void alertAcceptRole(String role)  /*-{
+        alert("Execute: " + role);
+    }-*/;
+
     @Override
     public void clear() {
         view.clear();
@@ -76,6 +80,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         String[] rolesArray = delimiterRoles(roles);
         for(String role : rolesArray) {
             if (isValid(role)) {
+                alertAcceptRole(role);
                 this.customEntryCommand.execute(role);
                 this.okCommand.execute(new LiveSearchEntry<>(role, role));
             }
