@@ -34,7 +34,7 @@ import org.uberfire.mvp.Command;
 public class LiveSearchDropDown<TYPE> implements IsWidget {
 
     private View<TYPE> view;
-    private int maxItems = 100;
+    private int maxItems = 1000;
     private LiveSearchService<TYPE> searchService = null;
     private boolean changeCallbackEnabled = true;
     private boolean searchEnabled = true;
