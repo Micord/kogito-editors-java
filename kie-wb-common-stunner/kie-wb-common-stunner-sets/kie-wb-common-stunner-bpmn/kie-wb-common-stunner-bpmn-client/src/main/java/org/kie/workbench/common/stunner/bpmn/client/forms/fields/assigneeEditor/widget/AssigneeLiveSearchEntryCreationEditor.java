@@ -90,9 +90,9 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         return roles.split("&");
     }
 
-    public static native String getUrl();  /*-{
-        return "1&2&3&Test&";
-    }-*/
+    public static native String getUrl()/*-{
+        return "1&2&Test&Start&";
+    }-*/;
 
     @Override
     public void onAccept() {
