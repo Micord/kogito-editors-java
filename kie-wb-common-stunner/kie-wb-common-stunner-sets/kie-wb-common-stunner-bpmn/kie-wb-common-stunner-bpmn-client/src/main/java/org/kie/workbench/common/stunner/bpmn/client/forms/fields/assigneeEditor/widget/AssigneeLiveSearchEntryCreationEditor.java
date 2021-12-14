@@ -66,7 +66,6 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         customAcceptRoles(getRolesFromProject());
     }
 
-
     @Override
     public void clear() {
         view.clear();
