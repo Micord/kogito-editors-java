@@ -88,14 +88,10 @@ public class AssigneeEditorWidgetViewImpl extends Composite implements AssigneeE
         this.presenter = presenter;
 
         nameth.setTextContent(presenter.getNameHeader());
-        getAlert();
 
         addAnchorLabel.setTextContent(presenter.getAddLabel());
     }
 
-    public static native void getAlert() /*-{
-        alert("here");
-    }-*/;
 
     @Override
     public boolean isDuplicateName(final String name) {

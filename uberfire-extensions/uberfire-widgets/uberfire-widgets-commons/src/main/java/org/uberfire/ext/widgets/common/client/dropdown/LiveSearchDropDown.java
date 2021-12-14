@@ -147,12 +147,7 @@ public class LiveSearchDropDown<TYPE> implements IsWidget {
 
         view.restoreFooter();
 
-        getUrl(entry.getValue());
     }
-
-    public static native String getUrl(String key)  /*-{
-        console.log(key);
-    }-*/;
 
     public boolean isSearchCacheEnabled() {
         return searchCacheEnabled;

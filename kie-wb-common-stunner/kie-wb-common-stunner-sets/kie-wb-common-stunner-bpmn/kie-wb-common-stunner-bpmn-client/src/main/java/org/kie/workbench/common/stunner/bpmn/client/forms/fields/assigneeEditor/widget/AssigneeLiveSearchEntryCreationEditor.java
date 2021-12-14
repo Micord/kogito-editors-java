@@ -55,13 +55,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     public void init(ParameterizedCommand<LiveSearchEntry<String>> okCommand, Command cancelCommand) {
         this.okCommand = okCommand;
         this.cancelCommand = cancelCommand;
-        customAcceptRoles(getUrl());
     }
-
-    public static native String getUrl()  /*-{
-        return "1&2&";
-    }-*/;
-
 
     @Override
     public void clear() {
