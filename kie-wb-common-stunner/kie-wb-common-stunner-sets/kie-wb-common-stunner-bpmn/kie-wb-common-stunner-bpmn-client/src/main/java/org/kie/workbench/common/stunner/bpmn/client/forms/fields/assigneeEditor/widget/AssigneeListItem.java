@@ -62,6 +62,8 @@ public class AssigneeListItem {
 
         liveSearchService.setSearchErrorHandler(errorCommand::execute);
 
+        liveSearchDropDown.init(liveSearchService, searchSelectionHandler);
+
         liveSearchDropDown.rolesInit(liveSearchService, searchSelectionHandler);
 
         liveSearchDropDown.setSelectedItem(assignee.getName());
