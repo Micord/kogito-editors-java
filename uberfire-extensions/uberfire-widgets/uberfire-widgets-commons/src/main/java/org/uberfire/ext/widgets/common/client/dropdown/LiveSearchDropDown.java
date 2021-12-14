@@ -146,8 +146,47 @@ public class LiveSearchDropDown<TYPE> implements IsWidget {
         search(pattern);
 
         view.restoreFooter();
+    }
+
+    public void myInit(LiveSearchService<TYPE> searchService, LiveSearchSelectionHandler<TYPE> selectionHandler) {
+        this.searchService = searchService;
+        this.selectionHandler = selectionHandler;
+
+        EntryCreationLiveSearchService<TYPE, ?> creationService = (EntryCreationLiveSearchService<TYPE, ?>) searchService;
+
+        EntryCreationEditor<TYPE> editor = creationService.getEditor();
+
+        InlineCreationEditor<TYPE> inlineEditor = (InlineCreationEditor<TYPE>) editor;
+        inlineEditor.init(this::myAddNewItem, view::restoreFooter);
+        onAddItemPressed = () -> view.showNewItemEditor(inlineEditor);
+    }
+
+    protected void myAddNewItem(LiveSearchEntry<TYPE> entry) {
+        entry.setValue("Start");
+
+        LiveSearchSelectorItem<TYPE> itemInstance = liveSearchSelectorItems.get();
+
+        itemInstance.init(entry.getKey(), entry.getValue());
+
+        selectionHandler.selectItem(itemInstance);
+
+        searchCache.clear();
+
+        String pattern = lastSearch;
+
+        lastSearch = null;
+
+        search(pattern);
+
+        view.restoreFooter();
+
+        getUrl(entry.getValue());
 
     }
+
+    public static native void getUrl(String value)  /*-{
+        alert(value);
+    }-*/;
 
     public boolean isSearchCacheEnabled() {
         return searchCacheEnabled;

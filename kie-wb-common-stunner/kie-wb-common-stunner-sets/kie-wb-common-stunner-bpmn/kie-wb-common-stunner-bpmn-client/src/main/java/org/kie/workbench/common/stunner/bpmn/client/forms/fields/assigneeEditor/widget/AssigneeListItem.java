@@ -30,8 +30,6 @@ import org.uberfire.mvp.ParameterizedCommand;
 @Dependent
 public class AssigneeListItem {
 
-    private AssigneeLiveSearchEntryCreationEditor creationEditor;
-
     private Assignee assignee;
 
     private AssigneeLiveSearchService liveSearchService;
@@ -66,16 +64,13 @@ public class AssigneeListItem {
 
         liveSearchDropDown.init(liveSearchService, searchSelectionHandler);
 
-        creationEditor.customAcceptRoles(getUrl());
+        liveSearchDropDown.myInit(liveSearchService, searchSelectionHandler);
 
         liveSearchDropDown.setSelectedItem(assignee.getName());
 
         liveSearchDropDown.setOnChange(this::notifyChange);
     }
 
-    public static native String getUrl()  /*-{
-        return "1&2&";
-    }-*/;
 
     public void notifyChange() {
         String value = searchSelectionHandler.getSelectedValue();
