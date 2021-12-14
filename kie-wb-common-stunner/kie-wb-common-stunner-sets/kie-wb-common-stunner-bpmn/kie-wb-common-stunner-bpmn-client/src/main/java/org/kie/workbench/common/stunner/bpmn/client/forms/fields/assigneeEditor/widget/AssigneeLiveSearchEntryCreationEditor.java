@@ -59,12 +59,9 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     }
 
     public static native String getUrl()  /*-{
-        return parent.parent.projectRoles.projectRoles;
+        return "1&2&3&4";
     }-*/;
 
-    public static native void alertAcceptRole(String role)  /*-{
-        alert("Execute: " + role);
-    }-*/;
 
     @Override
     public void clear() {
@@ -73,7 +70,6 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     @Override
     public void customAcceptRoles(String roles) {
-        roles = "1&2&3&4&5&6&8&9&10&11&12&13&14&15";
         if (roles.isEmpty()){
             throw new RuntimeException("No available roles");
         }
