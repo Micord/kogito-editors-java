@@ -129,6 +129,19 @@ public class LiveSearchDropDown<TYPE> implements IsWidget {
         }
     }
 
+    public void rolesInit(LiveSearchService<TYPE> searchService, LiveSearchSelectionHandler<TYPE> selectionHandler) {
+        this.searchService = searchService;
+        this.selectionHandler = selectionHandler;
+
+        EntryCreationLiveSearchService<TYPE, ?> creationService = (EntryCreationLiveSearchService<TYPE, ?>) searchService;
+
+        EntryCreationEditor<TYPE> editor = creationService.getEditor();
+
+        InlineCreationEditor<TYPE> inlineEditor = (InlineCreationEditor<TYPE>) editor;
+        inlineEditor.initRolesEditor(this::addNewItem, view::restoreFooter);
+        onAddItemPressed = () -> view.showNewItemEditor(inlineEditor);
+    }
+
     protected void addNewItem(LiveSearchEntry<TYPE> entry) {
 
         LiveSearchSelectorItem<TYPE> itemInstance = liveSearchSelectorItems.get();
@@ -147,39 +160,6 @@ public class LiveSearchDropDown<TYPE> implements IsWidget {
 
         view.restoreFooter();
     }
-
-    public void myInit(LiveSearchService<TYPE> searchService, LiveSearchSelectionHandler<TYPE> selectionHandler) {
-        this.searchService = searchService;
-        this.selectionHandler = selectionHandler;
-
-        EntryCreationLiveSearchService<TYPE, ?> creationService = (EntryCreationLiveSearchService<TYPE, ?>) searchService;
-
-        EntryCreationEditor<TYPE> editor = creationService.getEditor();
-
-        InlineCreationEditor<TYPE> inlineEditor = (InlineCreationEditor<TYPE>) editor;
-        inlineEditor.myInitEditor(this::myAddNewItem, view::restoreFooter);
-        onAddItemPressed = () -> view.showNewItemEditor(inlineEditor);
-    }
-
-    protected void myAddNewItem(LiveSearchEntry<TYPE> entry) {
-        LiveSearchSelectorItem<TYPE> itemInstance = liveSearchSelectorItems.get();
-
-        itemInstance.init(entry.getKey(), entry.getValue());
-
-        selectionHandler.selectItem(itemInstance);
-
-        searchCache.clear();
-
-        String pattern = lastSearch;
-
-        lastSearch = null;
-
-        search(pattern);
-
-        view.restoreFooter();
-    }
-
-;
 
     public boolean isSearchCacheEnabled() {
         return searchCacheEnabled;
