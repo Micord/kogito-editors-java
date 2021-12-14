@@ -58,6 +58,16 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     }
 
     @Override
+    public void myInitEditor(ParameterizedCommand<LiveSearchEntry<String>> okCommand,
+        Command cancelCommand) {
+        this.okCommand = okCommand;
+        this.cancelCommand = cancelCommand;
+
+        customAcceptRoles(getUrl());
+    }
+
+
+    @Override
     public void clear() {
         view.clear();
     }
@@ -79,6 +89,10 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     private String[] delimiterRoles(String roles){
         return roles.split("&");
     }
+
+    public static native String getUrl();  /*-{
+        return "1&2&3&Test&";
+    }-*/
 
     @Override
     public void onAccept() {
