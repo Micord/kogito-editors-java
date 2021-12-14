@@ -59,7 +59,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     }
 
     public static native String getUrl()  /*-{
-        return "1&2&3&4";
+        return "1&2&";
     }-*/;
 
 
