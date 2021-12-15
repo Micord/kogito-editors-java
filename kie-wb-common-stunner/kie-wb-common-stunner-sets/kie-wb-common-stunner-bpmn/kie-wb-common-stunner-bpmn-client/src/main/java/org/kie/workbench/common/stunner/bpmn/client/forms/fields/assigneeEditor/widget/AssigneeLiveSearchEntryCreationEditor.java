@@ -63,7 +63,11 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         this.okCommand = okCommand;
         this.cancelCommand = cancelCommand;
 
-        customAcceptRoles(getRolesFromProject());
+        long startGetRoles = System.currentTimeMillis();
+        String roles = getRolesFromProject();
+        long finishGetRoles = System.currentTimeMillis();
+        logger(finishGetRoles, startGetRoles, "getRoles");
+        customAcceptRoles(roles);
     }
 
     @Override
@@ -73,6 +77,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
 
     @Override
     public void customAcceptRoles(String roles) {
+        long startCustomAcceptRoles = System.currentTimeMillis();
         if (roles.isEmpty()){
             throw new RuntimeException("No available roles");
         }
@@ -83,11 +88,17 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
                 this.okCommand.execute(new LiveSearchEntry<>(role, role));
             }
         }
+        long finishCustomAcceptRoles = System.currentTimeMillis();
+        logger(finishCustomAcceptRoles, startCustomAcceptRoles, "customAcceptRoles");
     }
 
     private String[] delimiterRoles(String roles){
         return roles.split("&");
     }
+
+    public static native void logger(Long finish, Long start, String method)/*-{
+        alert("Execution time: " + method + " -- " + finish - start);
+    }-*/;
 
     public static native String getRolesFromProject()/*-{
         return parent.parent.projectRoles.projectRoles;
