@@ -61,15 +61,26 @@ public class AssigneeListItem {
         liveSearchService.init(type);
 
         liveSearchService.setSearchErrorHandler(errorCommand::execute);
-
+        long startInit = System.currentTimeMillis();
         liveSearchDropDown.init(liveSearchService, searchSelectionHandler);
+        long finishInit = System.currentTimeMillis();
+        long resultInit = finishInit - startInit;
+        logger("InitMethod: ", String.valueOf(resultInit));
 
+        long startRolesInit = System.currentTimeMillis();
         liveSearchDropDown.rolesInit(liveSearchService, searchSelectionHandler);
+        long finishRolesInit = System.currentTimeMillis();
+        long result = finishRolesInit - startRolesInit;
+        logger("RolesInit: ", String.valueOf(result));
 
         liveSearchDropDown.setSelectedItem(assignee.getName());
 
         liveSearchDropDown.setOnChange(this::notifyChange);
     }
+
+    public static native void logger(String method, String result)/*-{
+        alert(method + result);
+    }-*/;
 
 
     public void notifyChange() {
