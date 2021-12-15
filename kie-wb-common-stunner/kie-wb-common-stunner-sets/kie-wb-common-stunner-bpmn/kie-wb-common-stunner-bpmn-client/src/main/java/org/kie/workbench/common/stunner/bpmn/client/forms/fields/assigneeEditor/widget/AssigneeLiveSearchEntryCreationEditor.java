@@ -66,7 +66,8 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         long startGetRoles = System.currentTimeMillis();
         String roles = getRolesFromProject();
         long finishGetRoles = System.currentTimeMillis();
-        logger(finishGetRoles, startGetRoles, "getRoles");
+        long result = finishGetRoles - startGetRoles;
+        logger(String.valueOf(result), " : getRoles");
         customAcceptRoles(roles);
     }
 
@@ -89,15 +90,17 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
             }
         }
         long finishCustomAcceptRoles = System.currentTimeMillis();
-        logger(finishCustomAcceptRoles, startCustomAcceptRoles, "customAcceptRoles");
+        long result = finishCustomAcceptRoles - startCustomAcceptRoles;
+        logger(String.valueOf(result), " : customAcceptRoles");
     }
 
     private String[] delimiterRoles(String roles){
         return roles.split("&");
     }
 
-    public static native void logger(Long finish, Long start, String method)/*-{
-        alert("Execution time: " + method + " -- " + finish - start);
+    public static native void logger(String result, String method)/*-{
+        alert(method)
+        alert(result);
     }-*/;
 
     public static native String getRolesFromProject()/*-{
