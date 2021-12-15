@@ -85,8 +85,12 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         String[] rolesArray = delimiterRoles(roles);
         for(String role : rolesArray) {
             if (isValid(role)) {
+                long startExecute = System.currentTimeMillis();
                 this.customEntryCommand.execute(role);
                 this.okCommand.execute(new LiveSearchEntry<>(role, role));
+                long finishExecute = System.currentTimeMillis();
+                long result = finishExecute - startExecute;
+                logger(("Execute " + role), String.valueOf(result));
             }
         }
         long finishCustomAcceptRoles = System.currentTimeMillis();
@@ -99,11 +103,11 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     }
 
     public static native void logger(String method, String result)/*-{
-        alert(method + result);
+        console.log(method + result);
     }-*/;
 
     public static native String getRolesFromProject()/*-{
-        return parent.parent.projectRoles.projectRoles;
+        return "1&2&3&4&5&6&7&8&9&10&11&12&13&14&15&16&";
     }-*/;
 
     @Override
