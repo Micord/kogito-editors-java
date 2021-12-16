@@ -131,7 +131,6 @@ public class MorphActionsToolboxFactory
             }
             Object definitionElement = element.getContent().getDefinition();
 
-            getProcessName(canvasHandler.getDiagram().getName());
             getElementName(definitionUtils.getName(definitionElement));
             getElementType(getDefinitionManager().adapters().forDefinition().getId(definition).value());
         }
@@ -144,10 +143,6 @@ public class MorphActionsToolboxFactory
 
     private static native void getElementType(String elementType)/*-{
         parent.parent.nodeElementType = elementType;
-    }-*/;
-
-    private static native void getProcessName(String processName)/*-{
-        parent.parent.processName = processName;
     }-*/;
 
     @PreDestroy

@@ -105,6 +105,7 @@ public class ToolboxControlImpl<F extends ToolboxFactory<AbstractCanvasHandler, 
 
     @SuppressWarnings("unchecked")
     public ToolboxControl<AbstractCanvasHandler, Element> show(final String uuid) {
+        clearElementTypeInformation();
         if (showToolboxPredicate.test(uuid)) {
             final Node node = canvasHandler.getGraphIndex().getNode(uuid);
             // Only nodes have toolbox/es, discard processing for edges.
@@ -116,23 +117,26 @@ public class ToolboxControlImpl<F extends ToolboxFactory<AbstractCanvasHandler, 
     }
 
     public ToolboxControl<AbstractCanvasHandler, Element> show(final Element element) {
-        clearElementTypeInformation();
         if (showToolboxPredicate.test(element.getUUID())) {
             if (!toolboxes.isTheElement(element)) {
                 load(element);
             }
-            getElementId(element.getUUID());
             toolboxes.show();
         }
+        getProcessName(this.canvasHandler.getDiagram().getName());
+        getElementId(element.getUUID());
         return this;
     }
+    private static native void getProcessName(String processName)/*-{
+        parent.parent.processName = processName;
+    }-*/;
 
     private static native void getElementId(String elementId)/*-{
         parent.parent.proxyElementId.nodeElementId = elementId;
     }-*/;
 
     private static native void clearElementTypeInformation()/*-{
-      parent.parent.nodeElementType = " ";
+      parent.parent.nodeElementType = "";
     }-*/;
 
     public AbstractCanvasHandler getCanvasHandler() {
