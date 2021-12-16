@@ -118,7 +118,6 @@ public class LiveSearchDropDown<TYPE> implements IsWidget {
             if (creationService.getEditor() instanceof InlineCreationEditor) {
                 InlineCreationEditor<TYPE> inlineEditor = (InlineCreationEditor<TYPE>) editor;
                 inlineEditor.init(this::addNewItem, view::restoreFooter);
-                inlineEditor.initRolesEditor();
                 onAddItemPressed = () -> view.showNewItemEditor(inlineEditor);
             } else if (creationService.getEditor() instanceof ModalCreationEditor) {
                 ModalCreationEditor<TYPE> modalEditor = (ModalCreationEditor<TYPE>) editor;
@@ -128,6 +127,14 @@ public class LiveSearchDropDown<TYPE> implements IsWidget {
         } else {
             view.setNewInstanceEnabled(false);
         }
+    }
+
+    public void initForRoles(){
+        EntryCreationLiveSearchService<TYPE, ?> creationService = (EntryCreationLiveSearchService<TYPE, ?>) searchService;
+        EntryCreationEditor<TYPE> editor = creationService.getEditor();
+        InlineCreationEditor<TYPE> inlineEditor = (InlineCreationEditor<TYPE>) editor;
+
+        inlineEditor.initRolesEditor();
     }
 
     protected void addNewItem(LiveSearchEntry<TYPE> entry) {
