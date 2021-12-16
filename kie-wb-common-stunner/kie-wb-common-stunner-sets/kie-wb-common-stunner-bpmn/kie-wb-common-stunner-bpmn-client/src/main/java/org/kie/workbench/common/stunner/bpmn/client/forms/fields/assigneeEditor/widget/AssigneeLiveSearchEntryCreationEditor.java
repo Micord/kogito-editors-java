@@ -67,7 +67,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         String[] rolesArray = delimiterRoles(roles);
         for(String role : rolesArray) {
             if (isValid(role)) {
-                this.okCommand.execute(new LiveSearchEntry<>(role, role));
+                this.customEntryCommand.execute(role);
             }
         }
     }
