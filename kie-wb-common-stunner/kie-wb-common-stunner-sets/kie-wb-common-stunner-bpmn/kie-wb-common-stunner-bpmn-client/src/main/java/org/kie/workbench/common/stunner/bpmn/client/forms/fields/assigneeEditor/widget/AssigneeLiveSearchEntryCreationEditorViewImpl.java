@@ -93,9 +93,14 @@ public class AssigneeLiveSearchEntryCreationEditorViewImpl implements AssigneeLi
 
     @EventHandler("acceptButton")
     public void onAccept(ClickEvent event) {
+        logger("onAccept", "");
         presenter.onAccept();
         event.stopPropagation();
     }
+
+    public static native void logger(String method, String result)/*-{
+        console.log(method + result);
+    }-*/;
 
     @EventHandler("cancelButton")
     public void onCancel(ClickEvent event) {

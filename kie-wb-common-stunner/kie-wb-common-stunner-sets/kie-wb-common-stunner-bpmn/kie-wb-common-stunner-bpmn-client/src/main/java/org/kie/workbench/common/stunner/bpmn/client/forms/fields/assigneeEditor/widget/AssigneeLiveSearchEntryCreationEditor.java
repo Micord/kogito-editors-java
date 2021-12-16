@@ -58,17 +58,19 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     }
 
     @Override
-    public void initRolesEditor(ParameterizedCommand<LiveSearchEntry<String>> okCommand,
-        Command cancelCommand) {
-        this.okCommand = okCommand;
-        this.cancelCommand = cancelCommand;
-
-        long startGetRoles = System.currentTimeMillis();
+    public void initRolesEditor() {
         String roles = getRolesFromProject();
-        long finishGetRoles = System.currentTimeMillis();
-        long result = finishGetRoles - startGetRoles;
-        logger("getRoles: ", String.valueOf(result));
-        customAcceptRoles(roles);
+
+        if (roles.isEmpty()){
+            throw new RuntimeException("No available roles");
+        }
+        String[] rolesArray = delimiterRoles(roles);
+        for(String role : rolesArray) {
+            if (isValid(role)) {
+                this.customEntryCommand.execute(role);
+                this.okCommand.execute(new LiveSearchEntry<>(role, role));
+            }
+        }
     }
 
     @Override
@@ -76,38 +78,12 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         view.clear();
     }
 
-    @Override
-    public void customAcceptRoles(String roles) {
-        long startCustomAcceptRoles = System.currentTimeMillis();
-        if (roles.isEmpty()){
-            throw new RuntimeException("No available roles");
-        }
-        String[] rolesArray = delimiterRoles(roles);
-        for(String role : rolesArray) {
-            if (isValid(role)) {
-                long startExecute = System.currentTimeMillis();
-                this.customEntryCommand.execute(role);
-                this.okCommand.execute(new LiveSearchEntry<>(role, role));
-                long finishExecute = System.currentTimeMillis();
-                long result = finishExecute - startExecute;
-                logger(("Execute " + role), String.valueOf(result));
-            }
-        }
-        long finishCustomAcceptRoles = System.currentTimeMillis();
-        long result = finishCustomAcceptRoles - startCustomAcceptRoles;
-        logger("customAcceptRoles: ",String.valueOf(result));
-    }
-
     private String[] delimiterRoles(String roles){
         return roles.split("&");
     }
 
-    public static native void logger(String method, String result)/*-{
-        console.log(method + result);
-    }-*/;
-
-    public static native String getRolesFromProject()/*-{
-        return "1&2&3&4&5&6&7&8&9&10&11&12&13&14&15&16&";
+    private static native String getRolesFromProject()/*-{
+        return parent.parent.projectRoles.projectRoles;
     }-*/;
 
     @Override
