@@ -107,7 +107,6 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
             view.showError(translationService.getTranslation(StunnerBPMNConstants.ASSIGNEE_CANNOT_BE_EMPTY));
             return false;
         }
-
         return true;
     }
 

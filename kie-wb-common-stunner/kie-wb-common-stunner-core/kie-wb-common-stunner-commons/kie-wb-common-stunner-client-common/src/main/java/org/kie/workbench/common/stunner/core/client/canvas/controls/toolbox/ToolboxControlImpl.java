@@ -116,14 +116,14 @@ public class ToolboxControlImpl<F extends ToolboxFactory<AbstractCanvasHandler, 
     }
 
     public ToolboxControl<AbstractCanvasHandler, Element> show(final Element element) {
+        clearElementTypeInformation();
         if (showToolboxPredicate.test(element.getUUID())) {
             if (!toolboxes.isTheElement(element)) {
                 load(element);
             }
+            getElementId(element.getUUID());
             toolboxes.show();
         }
-        getElementId(element.getUUID());
-        clearElementInformation();
         return this;
     }
 
@@ -131,9 +131,8 @@ public class ToolboxControlImpl<F extends ToolboxFactory<AbstractCanvasHandler, 
         parent.parent.proxyElementId.nodeElementId = elementId;
     }-*/;
 
-    private static native void clearElementInformation()/*-{
-      parent.parent.processName = "";
-      parent.parent.nodeElementType = "";
+    private static native void clearElementTypeInformation()/*-{
+      parent.parent.nodeElementType = " ";
     }-*/;
 
     public AbstractCanvasHandler getCanvasHandler() {
