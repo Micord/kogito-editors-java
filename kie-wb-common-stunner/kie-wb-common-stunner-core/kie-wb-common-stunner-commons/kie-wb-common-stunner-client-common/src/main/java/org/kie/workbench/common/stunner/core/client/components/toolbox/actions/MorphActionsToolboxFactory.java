@@ -132,18 +132,11 @@ public class MorphActionsToolboxFactory
             Object definitionElement = element.getContent().getDefinition();
 
             getProcessName(canvasHandler.getDiagram().getName());
-            getProcessId(canvasHandler.getUuid());
-
             getElementName(definitionUtils.getName(definitionElement));
             getElementType(getDefinitionManager().adapters().forDefinition().getId(definition).value());
-            getElementId(element.getUUID());
         }
         return actions;
     }
-
-    private static native void getElementId(String elementId)/*-{
-        parent.parent.proxyElementId.nodeElementId = elementId;
-    }-*/;
 
     private static native void getElementName(String elementName)/*-{
         parent.parent.nodeElementName = elementName;
@@ -153,17 +146,9 @@ public class MorphActionsToolboxFactory
         parent.parent.nodeElementType = elementType;
     }-*/;
 
-    private static native void getProcessId(String processId)/*-{
-        parent.parent.processId = processId;
-    }-*/;
-
     private static native void getProcessName(String processName)/*-{
         parent.parent.processName = processName;
     }-*/;
-
-
-
-
 
     @PreDestroy
     public void destroy() {
