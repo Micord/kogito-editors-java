@@ -82,7 +82,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     }
 
     private static native String getRolesFromProject()/*-{
-        return "1&2&3&4&";
+        return parent.parent.projectRoles.projectRoles;
     }-*/;
 
     @Override
