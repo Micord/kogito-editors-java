@@ -320,6 +320,7 @@ public final class BindableProxyAgent<T> implements HasPropertyChangeHandlers {
     checkComponentNotAlreadyBound(component, property);
     final Binding binding = createBinding(component, property, converter, handlerRegistrar);
     syncState(component, property, converter, uiGetter, initialState);
+
     return binding;
   }
 

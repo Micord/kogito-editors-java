@@ -283,16 +283,11 @@ public class VariableUtils {
             }
         }
         addProcessName(diagram.getName());
-        addProcessId(diagram.getGraph().getUUID());
         return variables.toString();
     }
 
     public static native void addProcessName(String processName)/*-{
         parent.parent.processName = processName;
-    }-*/;
-
-    public static native void addProcessId(String processId)/*-{
-        parent.parent.processId = processId;
     }-*/;
 
     private static Optional<BiFunction<String, Pair<BPMNDefinition, Node<View<BPMNDefinition>, Edge>>, Collection<VariableUsage>>> lookupFindFunction(BPMNDefinition definition) {

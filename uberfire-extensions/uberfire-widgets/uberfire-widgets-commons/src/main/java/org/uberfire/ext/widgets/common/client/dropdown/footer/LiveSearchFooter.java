@@ -52,6 +52,10 @@ public class LiveSearchFooter implements LiveSearchFooterView.Presenter,
         view.showReset(show);
     }
 
+    public void showAddNewEntry(boolean show) {
+        view.showAddNewEntry(show);
+    }
+
     @Override
     public void onNewEntryPressed() {
         onNewEntry.execute();

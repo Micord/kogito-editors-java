@@ -82,7 +82,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     }
 
     private static native String getRolesFromProject()/*-{
-        return "1&2&3&4&5&";
+        return parent.parent.projectRoles.projectRoles;
     }-*/;
 
     @Override
@@ -107,6 +107,7 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
             view.showError(translationService.getTranslation(StunnerBPMNConstants.ASSIGNEE_CANNOT_BE_EMPTY));
             return false;
         }
+
         return true;
     }
 
