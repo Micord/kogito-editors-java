@@ -71,7 +71,7 @@ public class LiveSearchFooterViewImpl implements LiveSearchFooterView,
 
     @Override
     public void setNewEntryLabel(String newEntryLabel) {
-        newEntryAnchorLabel.setTextContent(newEntryLabel);
+//        newEntryAnchorLabel.setTextContent(newEntryLabel);
     }
 
     @Override
