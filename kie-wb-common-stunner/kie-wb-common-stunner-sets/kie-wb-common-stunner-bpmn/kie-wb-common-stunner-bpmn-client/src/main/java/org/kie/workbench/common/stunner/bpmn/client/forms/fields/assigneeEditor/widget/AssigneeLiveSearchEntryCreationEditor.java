@@ -55,20 +55,12 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
     public void init(ParameterizedCommand<LiveSearchEntry<String>> okCommand, Command cancelCommand) {
         this.okCommand = okCommand;
         this.cancelCommand = cancelCommand;
-        customAcceptRoles(getUrl());
-    }
-
-    public static native String getUrl()  /*-{
-        return parent.parent.encodeFile[1];
-    }-*/;
-
-    @Override
-    public void clear() {
-        view.clear();
     }
 
     @Override
-    public void customAcceptRoles(String roles) {
+    public void initRolesEditor() {
+        String roles = getRolesFromProject();
+
         if (roles.isEmpty()){
             throw new RuntimeException("No available roles");
         }
@@ -76,14 +68,22 @@ public class AssigneeLiveSearchEntryCreationEditor implements InlineCreationEdit
         for(String role : rolesArray) {
             if (isValid(role)) {
                 this.customEntryCommand.execute(role);
-                this.okCommand.execute(new LiveSearchEntry<>(role, role));
             }
         }
     }
 
-    private String[] delimiterRoles(String roles){
-        return roles.split("\\W");
+    @Override
+    public void clear() {
+        view.clear();
     }
+
+    private String[] delimiterRoles(String roles){
+        return roles.split("&");
+    }
+
+    private static native String getRolesFromProject()/*-{
+        return parent.parent.projectRoles.projectRoles;
+    }-*/;
 
     @Override
     public void onAccept() {

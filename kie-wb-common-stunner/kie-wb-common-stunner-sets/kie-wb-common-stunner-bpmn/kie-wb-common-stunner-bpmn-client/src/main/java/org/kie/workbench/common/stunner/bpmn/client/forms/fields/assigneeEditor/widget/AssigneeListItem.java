@@ -64,6 +64,8 @@ public class AssigneeListItem {
 
         liveSearchDropDown.init(liveSearchService, searchSelectionHandler);
 
+        liveSearchDropDown.initForRoles();
+
         liveSearchDropDown.setSelectedItem(assignee.getName());
 
         liveSearchDropDown.setOnChange(this::notifyChange);
