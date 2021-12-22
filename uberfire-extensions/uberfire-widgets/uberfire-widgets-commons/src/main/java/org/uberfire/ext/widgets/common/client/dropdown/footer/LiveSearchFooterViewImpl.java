@@ -80,6 +80,11 @@ public class LiveSearchFooterViewImpl implements LiveSearchFooterView,
     }
 
     @Override
+    public void showAddNewEntry(boolean show) {
+        newEntryAnchor.setHidden(!show);
+    }
+
+    @Override
     public void show(HTMLElement element) {
         DOMUtil.removeAllChildren(container);
         container.appendChild(element);
