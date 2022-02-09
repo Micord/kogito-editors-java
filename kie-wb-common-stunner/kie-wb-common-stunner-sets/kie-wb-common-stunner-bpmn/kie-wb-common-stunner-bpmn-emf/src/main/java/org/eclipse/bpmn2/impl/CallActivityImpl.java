@@ -97,11 +97,32 @@ public class CallActivityImpl extends ActivityImpl implements CallActivity {
 	@Override
 	public void setCalledElement(String newCalledElement) {
 		String oldCalledElement = calledElement;
-		calledElement = newCalledElement;
+		String jsonResourcesPaths = getJsonResourcesPaths();
+		calledElement = getProcessIdByPath(jsonResourcesPaths, newCalledElement);
+		if (calledElement == null){
+			throw new RuntimeException("Failed get called process for Sub-process");
+		}
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Bpmn2Package.CALL_ACTIVITY__CALLED_ELEMENT,
 					oldCalledElement, calledElement));
 	}
+
+	private static native String getJsonResourcesPaths()/*-{
+		return parent.parent.resourcesPaths;
+	}-*/;
+
+	private static native String getProcessIdByPath(String jsonResources, String newCalledElement)/*-{
+  	var parsedResources = JSON.parse(jsonResources);
+		for (var key in parsedResources) {
+      if (key === newCalledElement){
+        return parsedResources[key];
+			}
+      else if (parsedResources[key] === newCalledElement){
+        return key;
+			}
+		}
+		return null;
+	}-*/;
 
 	/**
 	 * <!-- begin-user-doc -->

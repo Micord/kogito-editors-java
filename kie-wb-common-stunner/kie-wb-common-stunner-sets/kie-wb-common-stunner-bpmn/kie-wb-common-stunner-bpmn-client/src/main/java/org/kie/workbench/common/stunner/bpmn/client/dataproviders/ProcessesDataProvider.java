@@ -34,7 +34,7 @@ import static java.util.Arrays.stream;
 public class ProcessesDataProvider {
 
     private final StunnerFormsHandler formsHandler;
-    final List<String> processIds;
+    public List<String> processIds;
 
     // CDI proxy.
     public ProcessesDataProvider() {
@@ -55,7 +55,7 @@ public class ProcessesDataProvider {
         setProcessIds(toList(event.getProcessIds()));
     }
 
-    private void setProcessIds(final List<String> ids) {
+    public void setProcessIds(final List<String> ids) {
         if (!processIds.equals(ids)) {
             processIds.clear();
             processIds.addAll(ids);

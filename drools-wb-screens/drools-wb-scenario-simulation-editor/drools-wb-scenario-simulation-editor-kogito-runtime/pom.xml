@@ -428,7 +428,7 @@
           <module>org.drools.workbench.screens.scenariosimulation.webapp.DroolsWorkbenchScenarioSimulationKogitoRuntime</module>
           <extraJvmArgs>-Xmx4G -Xms1G -Xss1M -XX:CompileThreshold=7000 -Derrai.dynamic_validation.enabled=true</extraJvmArgs>
           <optimizationLevel>9</optimizationLevel>
-          <style>OBFUSCATED</style>
+          <style>PRETTY</style>
           <logLevel>INFO</logLevel>
           <noServer>false</noServer>
           <runTarget>index.html</runTarget>

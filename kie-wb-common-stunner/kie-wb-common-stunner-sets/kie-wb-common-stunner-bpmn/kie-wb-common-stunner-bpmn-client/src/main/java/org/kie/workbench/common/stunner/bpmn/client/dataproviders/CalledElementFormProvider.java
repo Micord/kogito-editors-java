@@ -15,6 +15,7 @@
  */
 package org.kie.workbench.common.stunner.bpmn.client.dataproviders;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -49,10 +50,25 @@ public class CalledElementFormProvider implements SelectorDataProvider {
         requestProcessDataEventSingleton = requestProcessDataEvent;
     }
 
+    private static native String getJsonResourcesPaths()/*-{
+        return parent.parent.resourcesPaths;
+    }-*/;
+
+    private static native String[] getListProcessesPaths(String jsonResources)/*-{
+        var parsedResources = JSON.parse(jsonResources);
+        var processesList = [];
+        for (var key in parsedResources) {
+            processesList.push(key);
+        }
+        return processesList;
+    }-*/;
+
     @Override
     @SuppressWarnings("unchecked")
     public SelectorData getSelectorData(final FormRenderingContext context) {
         requestProcessDataEvent.fire(new RequestProcessDataEvent());
+        String[] arrayProcesses = getListProcessesPaths(getJsonResourcesPaths());
+        dataProvider.setProcessIds(Arrays.asList(arrayProcesses));
         return new SelectorData(toMap(dataProvider.getProcessIds()), null);
     }
 
