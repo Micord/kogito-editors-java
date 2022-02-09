@@ -31,7 +31,7 @@ import org.kie.workbench.common.forms.fields.shared.fieldTypes.basic.selectors.l
 import org.kie.workbench.common.forms.fields.shared.fieldTypes.basic.textArea.type.TextAreaFieldType;
 import org.kie.workbench.common.stunner.bpmn.definition.property.general.SLADueDate;
 import org.kie.workbench.common.stunner.bpmn.definition.property.subProcess.IsCase;
-import org.kie.workbench.common.stunner.bpmn.forms.model.ComboBoxFieldType;
+import org.kie.workbench.common.stunner.bpmn.forms.model.AssigneeEditorFieldType;
 import org.kie.workbench.common.stunner.bpmn.forms.model.MultipleInstanceVariableFieldType;
 import org.kie.workbench.common.stunner.core.definition.annotation.Property;
 import org.kie.workbench.common.stunner.core.util.HashUtil;
@@ -47,7 +47,11 @@ public class ReusableSubprocessTaskExecutionSet extends BaseSubprocessTaskExecut
     @SelectorDataProvider(
             type = SelectorDataProvider.ProviderType.CLIENT,
             className = "org.kie.workbench.common.stunner.bpmn.client.dataproviders.CalledElementFormProvider")
-    @FormField(type = ComboBoxFieldType.class)
+    @FormField(
+        type = AssigneeEditorFieldType.class,
+        afterElement = "subject",
+        settings = @FieldParam(name = "type", value = "GROUP")
+    )
     @Valid
     protected CalledElement calledElement;
 
