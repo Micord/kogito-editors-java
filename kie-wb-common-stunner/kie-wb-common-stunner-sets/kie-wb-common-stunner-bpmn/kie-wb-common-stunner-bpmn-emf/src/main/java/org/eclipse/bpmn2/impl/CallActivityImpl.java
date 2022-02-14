@@ -99,9 +99,6 @@ public class CallActivityImpl extends ActivityImpl implements CallActivity {
 		String oldCalledElement = calledElement;
 		String jsonResourcesPaths = getJsonResourcesPaths();
 		calledElement = getProcessIdByPath(jsonResourcesPaths, newCalledElement);
-		if (calledElement == null){
-			throw new RuntimeException("Failed get called process for Sub-process");
-		}
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Bpmn2Package.CALL_ACTIVITY__CALLED_ELEMENT,
 					oldCalledElement, calledElement));
