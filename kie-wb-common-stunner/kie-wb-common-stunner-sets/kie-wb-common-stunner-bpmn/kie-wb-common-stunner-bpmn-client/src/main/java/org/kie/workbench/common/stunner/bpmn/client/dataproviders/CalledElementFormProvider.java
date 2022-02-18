@@ -57,6 +57,9 @@ public class CalledElementFormProvider implements SelectorDataProvider {
     private static native String[] getListProcessesPaths(String jsonResources)/*-{
         var parsedResources = JSON.parse(jsonResources);
         var processesList = [];
+        if (parsedResources === undefined) {
+          throw new Error("Failed parsed JSON with resources paths");
+        }
         for (var key in parsedResources) {
             processesList.push(key);
         }
@@ -67,7 +70,11 @@ public class CalledElementFormProvider implements SelectorDataProvider {
     @SuppressWarnings("unchecked")
     public SelectorData getSelectorData(final FormRenderingContext context) {
         requestProcessDataEvent.fire(new RequestProcessDataEvent());
-        String[] arrayProcesses = getListProcessesPaths(getJsonResourcesPaths());
+        String jsonResourcesPaths = getJsonResourcesPaths();
+        if (jsonResourcesPaths == null) {
+            throw new RuntimeException("Failed get JSON with resources paths");
+        }
+        String[] arrayProcesses = getListProcessesPaths(jsonResourcesPaths);
         dataProvider.setProcessIds(Arrays.asList(arrayProcesses));
         return new SelectorData(toMap(dataProvider.getProcessIds()), null);
     }
