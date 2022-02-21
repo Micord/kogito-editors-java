@@ -104,7 +104,7 @@ public class CallActivityImpl extends ActivityImpl implements CallActivity {
 	}
 
 	private static native String getProcessIdByPath(String newCalledElement)/*-{
-  	var parsedResources = window.resourcesParsed;
+  	var parsedResources = window.parsedResources;
 		for (var key in parsedResources) {
       if (key === newCalledElement){
         return parsedResources[key];

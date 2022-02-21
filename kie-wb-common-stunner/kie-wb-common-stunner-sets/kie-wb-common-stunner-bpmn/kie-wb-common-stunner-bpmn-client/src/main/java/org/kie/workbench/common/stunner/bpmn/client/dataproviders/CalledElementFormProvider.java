@@ -55,13 +55,13 @@ public class CalledElementFormProvider implements SelectorDataProvider {
     }-*/;
 
     private static native String[] getListProcessesPaths(String jsonResources)/*-{
-        var parsedResources = JSON.parse(jsonResources);
-        window.resourcesParsed = parsedResources;
+        var parsedResourcesPaths = JSON.parse(jsonResources);
         var processesList = [];
-        if (parsedResources === undefined) {
+        if (parsedResourcesPaths === undefined) {
           throw new Error("Failed parsed JSON with resources paths");
         }
-        for (var key in parsedResources) {
+        window.parsedResources = parsedResourcesPaths;
+        for (var key in parsedResourcesPaths) {
             processesList.push(key);
         }
         return processesList;
