@@ -56,6 +56,7 @@ public class CalledElementFormProvider implements SelectorDataProvider {
 
     private static native String[] getListProcessesPaths(String jsonResources)/*-{
         var parsedResources = JSON.parse(jsonResources);
+        window.resourcesParsed = parsedResources;
         var processesList = [];
         if (parsedResources === undefined) {
           throw new Error("Failed parsed JSON with resources paths");
