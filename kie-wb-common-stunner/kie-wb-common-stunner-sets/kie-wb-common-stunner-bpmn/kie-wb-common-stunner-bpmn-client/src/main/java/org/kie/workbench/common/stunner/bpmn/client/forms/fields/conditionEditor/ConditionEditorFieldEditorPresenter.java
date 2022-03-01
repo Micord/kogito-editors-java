@@ -88,7 +88,7 @@ public class ConditionEditorFieldEditorPresenter
         this.conditionEditorGeneratorService = conditionEditorGeneratorService;
         this.translationService = translationService;
 
-        if (isServiceAvailable()) {
+        if (!isServiceAvailable()) {
             enableSimpleConditionEditor(false);
             view.setSingleOptionSelection();
         }
@@ -110,7 +110,7 @@ public class ConditionEditorFieldEditorPresenter
         scriptEditor.addChangeHandler(this::onScriptChange);
         simpleConditionEditor.addChangeHandler(this::onSimpleConditionChange);
 
-        if (!isServiceAvailable()) {
+        if (isServiceAvailable()) {
             showSimpleConditionEditor();
         } else {
             showScriptEditor();
@@ -135,7 +135,7 @@ public class ConditionEditorFieldEditorPresenter
         simpleConditionEditor.clear();
         clearError();
         if (value != null) {
-            if (isInDefaultLanguage(value) && !isServiceAvailable()) {
+            if (isInDefaultLanguage(value) && isServiceAvailable()) {
                 if (!isEmpty(value.getScript())) {
                     conditionEditorParsingService
                             .call(value.getScript())
@@ -161,7 +161,7 @@ public class ConditionEditorFieldEditorPresenter
 
     void onSimpleConditionSelected() {
         clearError();
-        if (value != null && !isEmpty(value.getScript()) && !isServiceAvailable()) {
+        if (value != null && !isEmpty(value.getScript()) && isServiceAvailable()) {
             conditionEditorParsingService
                     .call(value.getScript())
                     .then(result -> {
