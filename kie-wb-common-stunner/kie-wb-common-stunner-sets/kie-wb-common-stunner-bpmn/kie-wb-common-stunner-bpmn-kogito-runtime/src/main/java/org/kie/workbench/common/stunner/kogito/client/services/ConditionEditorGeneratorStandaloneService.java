@@ -28,6 +28,32 @@ public class ConditionEditorGeneratorStandaloneService implements ConditionEdito
 
     @Override
     public Promise<GenerateConditionResult> call(final Condition condition) {
-        return Promise.resolve(new GenerateConditionResult(""));
+        return Promise.resolve(new GenerateConditionResult(generateScript(condition)));
+    }
+
+    public String generateScript(Condition condition) {
+        String function = condition.getFunction().trim();
+        final StringBuilder script = new StringBuilder();
+        script.append("return ");
+        script.append("KieFunctions.");
+        script.append(function);
+        script.append("(");
+        boolean first = true;
+        for (String param : condition.getParams()) {
+            if (param == null || param.isEmpty()) {
+                throw new RuntimeException("Parameter is empty");
+            }
+            if (first) {
+                script.append(param);
+                first = false;
+             } else {
+                script.append(", ");
+                script.append("\"");
+                script.append(param);
+                script.append("\"");
+            }
+        }
+        script.append(");");
+        return script.toString();
     }
 }
