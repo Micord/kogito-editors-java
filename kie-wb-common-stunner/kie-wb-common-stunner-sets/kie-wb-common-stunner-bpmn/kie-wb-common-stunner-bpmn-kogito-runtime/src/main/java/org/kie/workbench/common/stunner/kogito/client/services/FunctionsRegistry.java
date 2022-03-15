@@ -68,14 +68,10 @@ public class FunctionsRegistry {
 
     private void initRegistry() {
 
-        //Operators for all types:
-
         FunctionDef isNull = FunctionDef.FunctionDefBuilder.newFunction(IS_NULL)
                 .withParam("param1", Object.class.getName())
                 .build();
         registry.add(isNull);
-
-        //Operators for String type:
 
         FunctionDef equalsTo = FunctionDef.FunctionDefBuilder.newFunction(EQUALS_TO)
                 .withParam("param1", String.class.getName())
@@ -105,8 +101,6 @@ public class FunctionsRegistry {
                 .withParam("param2", String.class.getName())
                 .build();
         registry.add(endsWith);
-
-        // Operators for Numeric types:
 
         FunctionDef equalsToNumeric = FunctionDef.FunctionDefBuilder.newFunction(EQUALS_TO)
                 .withParam("param1", Number.class.getName())
@@ -144,8 +138,6 @@ public class FunctionsRegistry {
                 .withParam("param3", String.class.getName())
                 .build();
         registry.add(between);
-
-        // Operators for Boolean type:
 
         FunctionDef isTrue = FunctionDef.FunctionDefBuilder.newFunction(IS_TRUE)
                 .withParam("param1", Boolean.class.getName())

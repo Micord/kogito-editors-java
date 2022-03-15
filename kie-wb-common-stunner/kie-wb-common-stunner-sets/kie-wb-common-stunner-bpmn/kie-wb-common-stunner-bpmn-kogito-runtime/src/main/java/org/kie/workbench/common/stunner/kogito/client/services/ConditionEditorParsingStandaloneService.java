@@ -39,38 +39,6 @@ public class ConditionEditorParsingStandaloneService implements ConditionEditorP
 
     private String functionName;
 
-    private static final String FUNCTION_NAME_NOT_RECOGNIZED_ERROR = "The function name \"{0}\" is not recognized by system.";
-
-    private static final String FUNCTION_CALL_NOT_FOUND_ERROR = "Function call was not found, a token like \"" + KIE_FUNCTIONS + "functionName(variable, params)\" is expected.";
-
-    private static final String VALID_FUNCTION_CALL_NOT_FOUND_ERROR = "The \"" + KIE_FUNCTIONS + "\" keyword must be followed by one of the following function names: \"{0}\"";
-
-    private static final String CONDITION_OUT_OF_BOUNDS_ERROR = "Out of bounds error, the condition has missing parameters or is not properly configured.";
-
-    private static final String FUNCTION_CALL_NOT_CLOSED_PROPERLY_ERROR = "Function call \"{0}\" is not closed properly, character \")\" is expected.";
-
-    private static final String FUNCTION_CALL_NOT_OPEN_PROPERLY_ERROR = "Function call \"{0}\" is not opened properly, character \"(\" is expected.";
-
-    private static final String SENTENCE_NOT_CLOSED_PROPERLY_ERROR = "Condition not closed properly, character \";\" is expected.";
-
-    private static final String FIELD_NAME_EXPECTED_ERROR = "A valid field name is expected.";
-
-    private static final String PARAMETER_DELIMITER_EXPECTED_ERROR = "Parameter delimiter \",\" is expected.";
-
-    private static final String STRING_PARAMETER_EXPECTED_ERROR = "String parameter value like \"some value\" is expected.";
-
-    private static final String SENTENCE_EXPECTED_AT_POSITION_ERROR = "Sentence \"{0}\" is expected at position {1}.";
-
-    private static final String BLANK_AFTER_RETURN_EXPECTED_ERROR = "Sentence \"{0}\" must be followed by a blank space or a line break.";
-
-    private static final String METHOD_INVOCATION_EXPECTED_ERROR = "A method invocation is expected at position {0}.";
-
-    private static final String METHOD_NOT_PROPERLY_OPENED_ERROR = "Method \"{0}\" invocation is not properly opened, character \"(\" is expected.";
-
-    private static final String METHOD_NOT_PROPERLY_CLOSED_ERROR = "Method \"{0}\" invocation is not properly closed, character \")\" is expected.";
-
-    private static final String RETURN_SENTENCE = "return";
-
     @Override
     public Promise<ParseConditionResult> call(final String input) {
         this.expression = input;
@@ -90,7 +58,7 @@ public class ConditionEditorParsingStandaloneService implements ConditionEditorP
         List<FunctionDef> functionDefs = FunctionsRegistry.getInstance().getFunctions(functionName);
 
         if (functionDefs.isEmpty()) {
-            throw new RuntimeException(FUNCTION_NAME_NOT_RECOGNIZED_ERROR);
+            throw new RuntimeException("The function name is not recognized by system.");
         }
 
         ParseException lastTryException = null;
@@ -127,7 +95,6 @@ public class ConditionEditorParsingStandaloneService implements ConditionEditorP
             condition.addParam(param);
         }
 
-        //all parameters were consumed
         parseFunctionClose();
         parseSentenceClose();
 
@@ -142,13 +109,13 @@ public class ConditionEditorParsingStandaloneService implements ConditionEditorP
     private void parseSentenceClose(){
         int index = nextNonBlank();
         if (index < 0 || expression.charAt(index) != ';') {
-            throw new RuntimeException(SENTENCE_NOT_CLOSED_PROPERLY_ERROR);
+            throw new RuntimeException("Condition not closed properly, character \";\" is expected.");
         }
 
         parseIndex = index + 1;
         while (parseIndex < expression.length()) {
             if (isNoneBlank(expression.charAt(parseIndex))) {
-                throw new RuntimeException(SENTENCE_NOT_CLOSED_PROPERLY_ERROR);
+                throw new RuntimeException("Condition not closed properly, character \";\" is expected.");
             }
             parseIndex++;
         }
@@ -156,19 +123,19 @@ public class ConditionEditorParsingStandaloneService implements ConditionEditorP
 
     private void parseReturnSentence() throws ParseException {
         int index = nextNonBlank();
-        if (index < 0 || !expression.startsWith(RETURN_SENTENCE, index)) {
-            throw new RuntimeException(SENTENCE_EXPECTED_AT_POSITION_ERROR);
+        if (index < 0 || !expression.startsWith("return", index)) {
+            throw new RuntimeException("Sentence is expected.");
         }
-        setParseIndex(index + RETURN_SENTENCE.length());
+        setParseIndex(index + "return".length());
         if (isNoneBlank(expression.charAt(parseIndex))) {
-            throw new RuntimeException(BLANK_AFTER_RETURN_EXPECTED_ERROR);
+            throw new RuntimeException("Sentence must be followed by a blank space or a line break.");
         }
     }
 
     private String parseFunctionName() throws ParseException {
         int index = nextNonBlank();
         if (index < 0 || !expression.startsWith(KIE_FUNCTIONS, index)) {
-            throw new RuntimeException(FUNCTION_CALL_NOT_FOUND_ERROR);
+            throw new RuntimeException("Function call was not found");
         }
 
         for (FunctionDef functionDef : FunctionsRegistry.getInstance().getFunctions()) {
@@ -179,16 +146,17 @@ public class ConditionEditorParsingStandaloneService implements ConditionEditorP
         }
 
         if (functionName == null) {
-            throw new RuntimeException(VALID_FUNCTION_CALL_NOT_FOUND_ERROR);
+            throw new RuntimeException("The keyword must be followed function names");
         }
 
         setParseIndex(index + functionName.length());
+
         return functionName;
     }
 
     private void setParseIndex(int parseIndex) throws ParseException {
         if (parseIndex >= expression.length()) {
-            throw new RuntimeException(CONDITION_OUT_OF_BOUNDS_ERROR);
+            throw new RuntimeException("Out of bounds error, the condition has missing parameters or is not properly configured.");
         }
         this.parseIndex = parseIndex;
     }
@@ -212,7 +180,7 @@ public class ConditionEditorParsingStandaloneService implements ConditionEditorP
     private void parseFunctionClose() throws ParseException {
         int index = nextNonBlank();
         if (index < 0 || expression.charAt(index) != ')') {
-            throw new RuntimeException(FUNCTION_CALL_NOT_CLOSED_PROPERLY_ERROR);
+            throw new RuntimeException("Function is not closed properly, character \")\" is expected.");
         }
         setParseIndex(index + 1);
     }
@@ -220,7 +188,7 @@ public class ConditionEditorParsingStandaloneService implements ConditionEditorP
     private String parseFunctionOpen() throws ParseException {
         int index = nextNonBlank();
         if (index < 0 || expression.charAt(index) != '(') {
-            throw new RuntimeException(FUNCTION_CALL_NOT_OPEN_PROPERLY_ERROR);
+            throw new RuntimeException("Function is not opened properly, character \"(\" is expected.");
         }
         setParseIndex(index + 1);
         return "(";
@@ -232,7 +200,7 @@ public class ConditionEditorParsingStandaloneService implements ConditionEditorP
         String methodName = null;
         int index = nextNonBlank();
         if (index < 0) {
-            throw new RuntimeException(FUNCTION_CALL_NOT_CLOSED_PROPERLY_ERROR);
+            throw new RuntimeException("Function is not closed properly, character \")\" is expected.");
         }
         if (expression.charAt(index) == '.') {
             setParseIndex(index + 1);
@@ -246,7 +214,7 @@ public class ConditionEditorParsingStandaloneService implements ConditionEditorP
     private String parseVariableName() throws ParseException {
         int index = nextNonBlank();
         if (index < 0) {
-            throw new RuntimeException(FIELD_NAME_EXPECTED_ERROR);
+            throw new RuntimeException("A valid field name is expected.");
         }
         String result = parseJavaName(expression, index, new char[]{' ', '.', ',', ')', '\r', '\n', '\t'});
         setParseIndex(index + result.length());
@@ -292,18 +260,18 @@ public class ConditionEditorParsingStandaloneService implements ConditionEditorP
     private String parseMethodName() throws ParseException {
         int index = nextNonBlank();
         if (index < 0) {
-            throw new RuntimeException(METHOD_INVOCATION_EXPECTED_ERROR);
+            throw new RuntimeException("A method invocation is expected.");
         }
         String result = parseJavaName(expression, index, new char[]{' ', '\r', '\n', '\t', '('});
         setParseIndex(index + result.length());
         index = nextNonBlank();
         if (index < 0 || expression.charAt(index) != '(') {
-            throw new RuntimeException(METHOD_NOT_PROPERLY_OPENED_ERROR);
+            throw new RuntimeException("Method invocation is not properly opened, character \"(\" is expected.");
         }
         setParseIndex(index + 1);
         index = nextNonBlank();
         if (index < 0 || expression.charAt(index) != ')') {
-            throw new RuntimeException(METHOD_NOT_PROPERLY_CLOSED_ERROR);
+            throw new RuntimeException("Method invocation is not properly closed, character \")\" is expected.");
         }
         setParseIndex(index + 1);
         return result + "()";
@@ -312,7 +280,7 @@ public class ConditionEditorParsingStandaloneService implements ConditionEditorP
     private void parseParamDelimiter() throws ParseException {
         int index = nextNonBlank();
         if (index < 0 || expression.charAt(index) != ',') {
-            throw new RuntimeException(PARAMETER_DELIMITER_EXPECTED_ERROR);
+            throw new RuntimeException("Parameter delimiter \",\" is expected.");
         }
         setParseIndex(index + 1);
     }
@@ -320,9 +288,8 @@ public class ConditionEditorParsingStandaloneService implements ConditionEditorP
     private String parseStringParameter() throws ParseException {
         int index = nextNonBlank();
         if (index < 0 || expression.charAt(index) != '"') {
-            throw new ParseException(STRING_PARAMETER_EXPECTED_ERROR, parseIndex);
+            throw new ParseException("String parameter value like \"some value\" is expected.", parseIndex);
         }
-
         Character scapeChar = '\\';
         Character last = null;
         boolean strReaded = false;
@@ -338,8 +305,9 @@ public class ConditionEditorParsingStandaloneService implements ConditionEditorP
         }
 
         if (!strReaded) {
-            throw new ParseException(STRING_PARAMETER_EXPECTED_ERROR, parseIndex);
+            throw new ParseException("String parameter is expected", parseIndex);
         }
+
         setParseIndex(index + param.length() + 2);
         return param.toString();
     }
