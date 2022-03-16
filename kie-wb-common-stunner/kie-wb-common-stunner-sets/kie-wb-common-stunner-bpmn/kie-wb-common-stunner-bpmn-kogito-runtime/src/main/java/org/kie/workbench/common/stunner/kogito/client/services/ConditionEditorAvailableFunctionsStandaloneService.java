@@ -17,6 +17,7 @@
 package org.kie.workbench.common.stunner.kogito.client.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -34,10 +35,23 @@ public class ConditionEditorAvailableFunctionsStandaloneService implements Condi
     }
 
     private List<FunctionDef> getFunctions(Input input) {
+        String definitionClass;
+        if (input.clazz.equals(Date.class.getName()) || input.clazz.equals(Object.class.getName())) {
+            definitionClass = Object.class.getName();
+        }
+        else if (input.clazz.equals(Boolean.class.getName())) {
+            definitionClass = Boolean.class.getName();
+        }
+        else if (input.clazz.equals(String.class.getName())) {
+            definitionClass = String.class.getName();
+        }
+        else {
+            definitionClass = Number.class.getName();
+        }
         List<FunctionDef> functionDefList = new ArrayList<>();
         for (FunctionDef functionDef : FunctionsRegistry.getInstance().getFunctions()) {
             String param = functionDef.getParams().get(0).getType();
-            if (param.contains(input.clazz)) {
+            if (param.equals(definitionClass)) {
                 functionDefList.add(functionDef);
             }
         }
