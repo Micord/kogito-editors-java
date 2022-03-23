@@ -25,6 +25,10 @@ import org.kie.workbench.common.stunner.bpmn.forms.conditions.FunctionDef;
 
 import static java.util.stream.Collectors.collectingAndThen;
 
+/**
+ * Импортированный класс @see org.kie.workbench.common.stunner.bpmn.project.backend.forms.conditions.parser.FunctionRegistry
+ * Класс регистрирует функции под актуальные типы значений.
+ */
 public class FunctionsRegistry {
 
     private static final String BETWEEN = "between";

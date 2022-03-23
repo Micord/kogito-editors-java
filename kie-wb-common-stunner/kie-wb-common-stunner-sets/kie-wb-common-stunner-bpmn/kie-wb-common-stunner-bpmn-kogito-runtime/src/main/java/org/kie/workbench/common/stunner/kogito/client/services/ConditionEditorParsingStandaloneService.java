@@ -28,6 +28,10 @@ import org.kie.workbench.common.stunner.bpmn.forms.conditions.FunctionDef;
 import org.kie.workbench.common.stunner.bpmn.forms.conditions.ParamDef;
 import org.kie.workbench.common.stunner.bpmn.forms.conditions.ParseConditionResult;
 
+/**
+ * Класс-парсер для получения готового условия для графического редактора.
+ * Выполняет парсинг текстового условия и проверяет наличие синтаксических ошибок.
+ */
 @ApplicationScoped
 public class ConditionEditorParsingStandaloneService implements ConditionEditorParsingService {
 

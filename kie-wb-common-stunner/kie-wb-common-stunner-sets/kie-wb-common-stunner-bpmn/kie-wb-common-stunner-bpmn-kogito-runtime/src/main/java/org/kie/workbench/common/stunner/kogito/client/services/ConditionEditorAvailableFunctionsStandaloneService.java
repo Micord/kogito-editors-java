@@ -34,6 +34,9 @@ public class ConditionEditorAvailableFunctionsStandaloneService implements Condi
         return Promise.resolve(getFunctions(input));
     }
 
+    /** Метод получения актуального списка функций под каждый тип значения
+     * @param input - тип объекта
+     */
     private List<FunctionDef> getFunctions(Input input) {
         String definitionClass;
         if (input.clazz.equals(Date.class.getName()) || input.clazz.equals(Object.class.getName())) {
