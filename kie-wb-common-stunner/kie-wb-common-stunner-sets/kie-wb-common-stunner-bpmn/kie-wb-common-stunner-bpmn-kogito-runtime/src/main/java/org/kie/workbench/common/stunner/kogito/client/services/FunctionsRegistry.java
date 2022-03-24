@@ -26,8 +26,8 @@ import org.kie.workbench.common.stunner.bpmn.forms.conditions.FunctionDef;
 import static java.util.stream.Collectors.collectingAndThen;
 
 /**
- * Импортированный класс @see org.kie.workbench.common.stunner.bpmn.project.backend.forms.conditions.parser.FunctionRegistry
- * Класс регистрирует функции под соответствующие типы объекта.
+ * Imported class @see org.kie.workbench.common.stunner.bpmn.project.backend.forms.conditions.parser.FunctionRegistry
+ * The class registers functions for the appropriate object types.
  */
 public class FunctionsRegistry {
 

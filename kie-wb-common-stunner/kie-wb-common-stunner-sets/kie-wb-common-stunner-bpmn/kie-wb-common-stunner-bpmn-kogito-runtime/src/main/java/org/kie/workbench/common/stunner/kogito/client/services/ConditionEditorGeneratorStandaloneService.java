@@ -31,9 +31,9 @@ public class ConditionEditorGeneratorStandaloneService implements ConditionEdito
         return Promise.resolve(new GenerateConditionResult(generateScript(condition)));
     }
 
-    /** Метод-генератор условия для текстового редактора.
-     * @param condition - условие из графического редактора.
-     * @return - строковое значение условия для текстового редактора.
+    /** Condition generator method for the text condition editor
+     * @param condition - condition from the graphical editor
+     * @return - condition string value for the text editor
      */
     public String generateScript(Condition condition) {
         String function = condition.getFunction().trim();
