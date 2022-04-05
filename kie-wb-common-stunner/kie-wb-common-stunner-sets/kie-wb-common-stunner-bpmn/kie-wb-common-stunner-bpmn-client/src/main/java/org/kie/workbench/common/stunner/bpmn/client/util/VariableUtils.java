@@ -283,13 +283,13 @@ public class VariableUtils {
             }
         }
         if (!diagram.getName().isEmpty()) {
-            console.log(diagram.getName());
             addProcessName(diagram.getName());
         }
         return variables.toString();
     }
 
     public static native void addProcessName(String processName)/*-{
+        console.log(processName);
         parent.parent.processName = processName;
     }-*/;
 
