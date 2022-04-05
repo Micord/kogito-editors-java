@@ -283,6 +283,7 @@ public class VariableUtils {
             }
         }
         if (!diagram.getName().isEmpty()) {
+            console.log(diagram.getName());
             addProcessName(diagram.getName());
         }
         return variables.toString();

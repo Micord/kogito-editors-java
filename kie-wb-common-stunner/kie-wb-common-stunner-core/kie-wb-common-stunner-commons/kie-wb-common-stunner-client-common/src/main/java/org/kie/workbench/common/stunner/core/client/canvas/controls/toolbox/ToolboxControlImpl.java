@@ -123,17 +123,19 @@ public class ToolboxControlImpl<F extends ToolboxFactory<AbstractCanvasHandler, 
             }
             toolboxes.show();
         }
-        if (!this.canvasHandler.getDiagram().getName().isEmpty() && !element.getUUID().isEmpty()) {
+        if (this.canvasHandler.getDiagram().getName() != null && element.getUUID() != null) {
             getProcessName(this.canvasHandler.getDiagram().getName());
             getElementId(element.getUUID());
         }
         return this;
     }
     private static native void getProcessName(String processName)/*-{
+        console.log(processName);
         parent.parent.processName = processName;
     }-*/;
 
     private static native void getElementId(String elementId)/*-{
+        console.log(elementId);
         parent.parent.proxyElementId.nodeElementId = elementId;
     }-*/;
 

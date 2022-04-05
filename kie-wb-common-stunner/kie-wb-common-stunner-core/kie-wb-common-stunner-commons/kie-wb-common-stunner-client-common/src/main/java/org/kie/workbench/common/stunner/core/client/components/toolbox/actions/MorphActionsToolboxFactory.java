@@ -129,7 +129,7 @@ public class MorphActionsToolboxFactory
                                                                                                   .setTargetDefinitionId(targetMorphId)));
                 }
             }
-            if (element.getContent().getDefinition() != null && definition != null) {
+            if (element.getContent().getDefinition() != null && definition != null && definitionUtils != null) {
                 Object definitionElement = element.getContent().getDefinition();
                 getElementName(definitionUtils.getName(definitionElement));
                 getElementType(getDefinitionManager().adapters().forDefinition().getId(definition).value());
@@ -139,10 +139,12 @@ public class MorphActionsToolboxFactory
     }
 
     private static native void getElementName(String elementName)/*-{
+        console.log(elementName);
         parent.parent.nodeElementName = elementName;
     }-*/;
 
     private static native void getElementType(String elementType)/*-{
+        console.log(elementType);
         parent.parent.nodeElementType = elementType;
     }-*/;
 
