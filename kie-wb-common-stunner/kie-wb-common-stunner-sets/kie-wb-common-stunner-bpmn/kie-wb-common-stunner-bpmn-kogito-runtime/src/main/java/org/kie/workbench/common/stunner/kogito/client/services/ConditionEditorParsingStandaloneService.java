@@ -28,6 +28,10 @@ import org.kie.workbench.common.stunner.bpmn.forms.conditions.FunctionDef;
 import org.kie.workbench.common.stunner.bpmn.forms.conditions.ParamDef;
 import org.kie.workbench.common.stunner.bpmn.forms.conditions.ParseConditionResult;
 
+/**
+ * Parser class for getting a ready Condition for the graphical editor.
+ * Do parsing the text Condition and checks on syntax errors
+ */
 @ApplicationScoped
 public class ConditionEditorParsingStandaloneService implements ConditionEditorParsingService {
 

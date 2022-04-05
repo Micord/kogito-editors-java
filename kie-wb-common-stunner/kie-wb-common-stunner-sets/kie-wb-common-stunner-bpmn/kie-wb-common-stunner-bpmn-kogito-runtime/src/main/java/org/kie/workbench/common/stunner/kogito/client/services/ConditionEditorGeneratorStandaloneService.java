@@ -31,6 +31,10 @@ public class ConditionEditorGeneratorStandaloneService implements ConditionEdito
         return Promise.resolve(new GenerateConditionResult(generateScript(condition)));
     }
 
+    /** Condition generator method for the text condition editor
+     * @param condition - condition from the graphical editor
+     * @return - condition string value for the text editor
+     */
     public String generateScript(Condition condition) {
         String function = condition.getFunction().trim();
         final StringBuilder script = new StringBuilder();

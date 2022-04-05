@@ -34,15 +34,22 @@ public class ConditionEditorAvailableFunctionsStandaloneService implements Condi
         return Promise.resolve(getFunctions(input));
     }
 
+    /** Method for getting actual functions list for each type of object
+     * @param input - object type.
+     * @return - list with available functions.
+     */
     private List<FunctionDef> getFunctions(Input input) {
         String definitionClass;
         if (input.clazz.equals(Date.class.getName()) || input.clazz.equals(Object.class.getName())) {
             definitionClass = Object.class.getName();
-        } else if (input.clazz.equals(Boolean.class.getName())) {
+        }
+        else if (input.clazz.equals(Boolean.class.getName())) {
             definitionClass = Boolean.class.getName();
-        } else if (input.clazz.equals(String.class.getName())) {
+        }
+        else if (input.clazz.equals(String.class.getName())) {
             definitionClass = String.class.getName();
-        } else {
+        }
+        else {
             definitionClass = Number.class.getName();
         }
         List<FunctionDef> functionDefList = new ArrayList<>();
