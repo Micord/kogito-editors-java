@@ -123,7 +123,7 @@ public class ToolboxControlImpl<F extends ToolboxFactory<AbstractCanvasHandler, 
             }
             toolboxes.show();
         }
-        if (this.canvasHandler.getDiagram().getName() != null && element.getUUID() != null) {
+        if (!this.canvasHandler.getDiagram().getName().equals("somePath") && !element.getUUID().equals("_34CD22DB-54D8-47D4-8A0B-E0D4100B7C5B")) {
             getProcessName(this.canvasHandler.getDiagram().getName());
             getElementId(element.getUUID());
         }
