@@ -129,10 +129,11 @@ public class MorphActionsToolboxFactory
                                                                                                   .setTargetDefinitionId(targetMorphId)));
                 }
             }
-            Object definitionElement = element.getContent().getDefinition();
-
-            getElementName(definitionUtils.getName(definitionElement));
-            getElementType(getDefinitionManager().adapters().forDefinition().getId(definition).value());
+            if (element.getContent().getDefinition() != null && definition != null) {
+                Object definitionElement = element.getContent().getDefinition();
+                getElementName(definitionUtils.getName(definitionElement));
+                getElementType(getDefinitionManager().adapters().forDefinition().getId(definition).value());
+            }
         }
         return actions;
     }

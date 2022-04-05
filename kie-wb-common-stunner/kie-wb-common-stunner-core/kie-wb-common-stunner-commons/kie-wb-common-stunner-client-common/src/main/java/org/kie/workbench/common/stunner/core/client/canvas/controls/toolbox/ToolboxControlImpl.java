@@ -123,8 +123,10 @@ public class ToolboxControlImpl<F extends ToolboxFactory<AbstractCanvasHandler, 
             }
             toolboxes.show();
         }
-        getProcessName(this.canvasHandler.getDiagram().getName());
-        getElementId(element.getUUID());
+        if (!this.canvasHandler.getDiagram().getName().isEmpty() && !element.getUUID().isEmpty()) {
+            getProcessName(this.canvasHandler.getDiagram().getName());
+            getElementId(element.getUUID());
+        }
         return this;
     }
     private static native void getProcessName(String processName)/*-{
