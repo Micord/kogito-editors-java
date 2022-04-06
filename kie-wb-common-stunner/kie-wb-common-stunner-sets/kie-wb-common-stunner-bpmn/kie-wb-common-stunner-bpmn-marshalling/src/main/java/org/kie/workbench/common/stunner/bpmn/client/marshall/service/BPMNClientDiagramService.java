@@ -18,7 +18,6 @@ package org.kie.workbench.common.stunner.bpmn.client.marshall.service;
 
 import java.util.Collection;
 import java.util.Objects;
-import java.util.UUID;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
