@@ -46,8 +46,7 @@ public class ToolboxControlImpl<F extends ToolboxFactory<AbstractCanvasHandler, 
     private final Toolboxes toolboxes = new Toolboxes();
     private final Predicate<String> showToolboxPredicate;
 
-    private static final String DEFAULT_UUID = "_34CD22DB-54D8-47D4-8A0B-E0D4100B7C5B";
-    private static final String DEFAULT_PATH = "somePath";
+    private static final String DEFAULT_PATH = "default";
 
     public static final Predicate<String> ALWAYS_SHOW_PREDICATE = id -> true;
 
@@ -126,7 +125,7 @@ public class ToolboxControlImpl<F extends ToolboxFactory<AbstractCanvasHandler, 
             }
             toolboxes.show();
         }
-        if (!this.canvasHandler.getDiagram().getName().equals(DEFAULT_PATH) && !element.getUUID().equals(DEFAULT_UUID)) {
+        if (!this.canvasHandler.getDiagram().getName().equals(DEFAULT_PATH)) {
             getProcessName(this.canvasHandler.getDiagram().getName());
             getElementId(element.getUUID());
         }
