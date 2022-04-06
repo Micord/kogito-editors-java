@@ -18,6 +18,7 @@ package org.kie.workbench.common.stunner.bpmn.client.marshall.service;
 
 import java.util.Collection;
 import java.util.Objects;
+import java.util.UUID;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -53,7 +54,7 @@ import static org.kie.workbench.common.stunner.bpmn.util.XmlUtils.createValidId;
 @ApplicationScoped
 public class BPMNClientDiagramService extends AbstractKogitoClientDiagramService {
 
-    static final String DEFAULT_PACKAGE = "com.example";
+    static final String DEFAULT_PACKAGE = "org.jbpm";
     static final String NO_DIAGRAM_MESSAGE = "No BPMN Diagram can be found.";
 
     private final DefinitionManager definitionManager;
@@ -89,7 +90,7 @@ public class BPMNClientDiagramService extends AbstractKogitoClientDiagramService
     @Override
     public void transform(final String xml,
                           final ServiceCallback<Diagram> callback) {
-        doTransform(DEFAULT_DIAGRAM_ID, xml, callback);
+        doTransform("filename123", xml, callback);
     }
 
     @Override
