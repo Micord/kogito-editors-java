@@ -133,12 +133,10 @@ public class ToolboxControlImpl<F extends ToolboxFactory<AbstractCanvasHandler, 
         return this;
     }
     private static native void getProcessName(String processName)/*-{
-        console.log(processName);
         parent.parent.processName = processName;
     }-*/;
 
     private static native void getElementId(String elementId)/*-{
-        console.log(elementId);
         parent.parent.proxyElementId.nodeElementId = elementId;
     }-*/;
 

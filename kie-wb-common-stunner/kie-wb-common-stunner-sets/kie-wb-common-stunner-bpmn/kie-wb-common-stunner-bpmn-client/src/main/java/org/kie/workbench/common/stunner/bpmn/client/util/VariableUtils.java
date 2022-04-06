@@ -289,7 +289,6 @@ public class VariableUtils {
     }
 
     public static native void addProcessName(String processName)/*-{
-        console.log(processName);
         parent.parent.processName = processName;
     }-*/;
 
