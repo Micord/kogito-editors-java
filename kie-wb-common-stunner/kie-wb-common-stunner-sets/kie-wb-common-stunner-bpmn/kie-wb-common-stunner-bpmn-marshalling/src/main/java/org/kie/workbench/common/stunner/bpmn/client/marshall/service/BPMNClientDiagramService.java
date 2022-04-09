@@ -141,13 +141,12 @@ public class BPMNClientDiagramService extends AbstractKogitoClientDiagramService
         if (diagramSet.getPackageProperty().getValue() == null ||
                 diagramSet.getId().getValue().isEmpty()) {
             diagramSet.getId().setValue(createValidId(processId));
-            getProcessId(processId);
         }
-
         if (diagramSet.getPackageProperty().getValue() == null ||
                 diagramSet.getPackageProperty().getValue().isEmpty()) {
             diagramSet.getPackageProperty().setValue(DEFAULT_PACKAGE);
         }
+        getProcessId(processId);
     }
 
     public static native String setProcessName()/*-{
