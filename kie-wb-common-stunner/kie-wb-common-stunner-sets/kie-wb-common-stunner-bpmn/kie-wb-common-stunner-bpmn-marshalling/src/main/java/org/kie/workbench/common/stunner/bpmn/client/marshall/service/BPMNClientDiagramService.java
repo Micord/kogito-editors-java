@@ -89,7 +89,7 @@ public class BPMNClientDiagramService extends AbstractKogitoClientDiagramService
     @Override
     public void transform(final String xml,
                           final ServiceCallback<Diagram> callback) {
-        doTransform("filename123", xml, callback);
+        doTransform(DEFAULT_DIAGRAM_ID, xml, callback);
     }
 
     @Override
@@ -135,7 +135,7 @@ public class BPMNClientDiagramService extends AbstractKogitoClientDiagramService
 
         if (diagramSet.getPackageProperty().getValue() == null ||
                 diagramSet.getName().getValue().isEmpty()) {
-            diagramSet.getName().setValue(name);
+            diagramSet.getName().setValue(setProcessName());
         }
 
         if (diagramSet.getPackageProperty().getValue() == null ||
@@ -148,6 +148,10 @@ public class BPMNClientDiagramService extends AbstractKogitoClientDiagramService
             diagramSet.getPackageProperty().setValue(DEFAULT_PACKAGE);
         }
     }
+
+    public static native String setProcessName()/*-{
+        return parent.parent.processName;
+    }-*/;
 
     private Diagram createNewDiagram(String fileName) {
         final String title = createDiagramTitleFromFilePath(fileName);

@@ -139,12 +139,10 @@ public class MorphActionsToolboxFactory
     }
 
     private static native void getElementName(String elementName)/*-{
-        console.log(elementName);
         parent.parent.nodeElementName = elementName;
     }-*/;
 
     private static native void getElementType(String elementType)/*-{
-        console.log(elementType);
         parent.parent.nodeElementType = elementType;
     }-*/;
 
