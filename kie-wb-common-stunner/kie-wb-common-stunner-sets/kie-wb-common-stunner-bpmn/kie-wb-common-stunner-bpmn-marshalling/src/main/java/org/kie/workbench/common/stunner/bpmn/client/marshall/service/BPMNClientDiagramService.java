@@ -135,26 +135,26 @@ public class BPMNClientDiagramService extends AbstractKogitoClientDiagramService
 
         if (diagramSet.getPackageProperty().getValue() == null ||
                 diagramSet.getName().getValue().isEmpty()) {
-            diagramSet.getName().setValue(setProcessName());
+            diagramSet.getName().setValue(getProcessIdFromBackend());
         }
 
         if (diagramSet.getPackageProperty().getValue() == null ||
                 diagramSet.getId().getValue().isEmpty()) {
             diagramSet.getId().setValue(createValidId(processId));
         }
+        sendProcessIdToBackend(diagramSet.getId().getValue());
 
         if (diagramSet.getPackageProperty().getValue() == null ||
                 diagramSet.getPackageProperty().getValue().isEmpty()) {
             diagramSet.getPackageProperty().setValue(DEFAULT_PACKAGE);
         }
-        getProcessId(processId);
     }
 
-    public static native String setProcessName()/*-{
+    public static native String getProcessIdFromBackend()/*-{
         return parent.parent.processName;
     }-*/;
 
-    public static native String getProcessId(String processId)/*-{
+    public static native String sendProcessIdToBackend(String processId)/*-{
         return parent.parent.processId = processId;
     }-*/;
 
