@@ -150,6 +150,8 @@ public class BPMNClientDiagramService extends AbstractKogitoClientDiagramService
     }
 
     public static native String setProcessName()/*-{
+        alert(parent.parent.processName);
+        alert(parent.processName);
         return parent.parent.processName;
     }-*/;
 
