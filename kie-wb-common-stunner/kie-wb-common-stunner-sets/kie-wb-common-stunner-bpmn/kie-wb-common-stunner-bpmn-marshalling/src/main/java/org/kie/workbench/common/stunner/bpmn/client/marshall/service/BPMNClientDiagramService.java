@@ -130,7 +130,7 @@ public class BPMNClientDiagramService extends AbstractKogitoClientDiagramService
         return promises.resolve(raw);
     }
 
-    private void updateDiagramSet(Node<Definition<BPMNDiagram>, ?> diagramNode, String name) {
+    private void updateDiagramSet(Node<Definition<BPMNDiagram>, ?> diagramNode, String processId) {
         final BaseDiagramSet diagramSet = diagramNode.getContent().getDefinition().getDiagramSet();
 
         if (diagramSet.getPackageProperty().getValue() == null ||
@@ -140,7 +140,8 @@ public class BPMNClientDiagramService extends AbstractKogitoClientDiagramService
 
         if (diagramSet.getPackageProperty().getValue() == null ||
                 diagramSet.getId().getValue().isEmpty()) {
-            diagramSet.getId().setValue(createValidId(name));
+            diagramSet.getId().setValue(createValidId(processId));
+            getProcessId(processId);
         }
 
         if (diagramSet.getPackageProperty().getValue() == null ||
@@ -150,9 +151,11 @@ public class BPMNClientDiagramService extends AbstractKogitoClientDiagramService
     }
 
     public static native String setProcessName()/*-{
-        alert(parent.parent.processName);
-        alert(parent.processName);
         return parent.parent.processName;
+    }-*/;
+
+    public static native String getProcessId(String processId)/*-{
+        return parent.parent.processId = processId;
     }-*/;
 
     private Diagram createNewDiagram(String fileName) {
