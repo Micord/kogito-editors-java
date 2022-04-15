@@ -75,8 +75,8 @@ public class GenericServiceTaskEditorWidget extends Composite implements HasValu
 
     public void setReadOnly(boolean readOnly) {
         implementation.setDisabled(readOnly);
-        serviceInterface.setDisabled(readOnly);
-        serviceOperation.setDisabled(readOnly);
+        serviceInterface.setDisabled(!readOnly);
+        serviceOperation.setDisabled(!readOnly);
     }
 
     Option newOption(final String text,
