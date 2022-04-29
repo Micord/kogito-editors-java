@@ -52,6 +52,6 @@ public class GenericServiceTaskEditorFieldRenderer extends FieldRenderer<Generic
 
     @Override
     protected void setReadOnly(boolean readOnly) {
-        editorWidget.setReadOnly(readOnly);
+        editorWidget.setReadOnly( readOnly);
     }
 }
