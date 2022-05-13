@@ -64,7 +64,9 @@ public class AssigneeListItem {
 
         liveSearchDropDown.init(liveSearchService, searchSelectionHandler);
 
-        liveSearchDropDown.initForRoles();
+        if (getRolesFromProject() != null) {
+            liveSearchDropDown.initForRoles();
+        }
 
         liveSearchDropDown.setSelectedItem(assignee.getName());
 
@@ -94,4 +96,11 @@ public class AssigneeListItem {
     public LiveSearchDropDown<String> getLiveSearchDropDown() {
         return liveSearchDropDown;
     }
+
+    private static native String getRolesFromProject()/*-{
+        if (Object.keys(parent.parent.projectRoles).length !== 0) {
+            return parent.parent.projectRoles.projectRoles;
+        }
+        return null;
+    }-*/;
 }

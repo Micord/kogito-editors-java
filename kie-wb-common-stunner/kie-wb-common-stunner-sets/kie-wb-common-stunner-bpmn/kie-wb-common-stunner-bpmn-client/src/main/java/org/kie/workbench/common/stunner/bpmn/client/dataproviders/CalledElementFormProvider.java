@@ -51,7 +51,10 @@ public class CalledElementFormProvider implements SelectorDataProvider {
     }
 
     private static native String getJsonResourcesPaths()/*-{
-        return parent.parent.resourcesPaths;
+        if (Object.keys(parent.parent.resourcesPaths).length !== 0) {
+            return parent.parent.resourcesPaths;
+        }
+        return null;
     }-*/;
 
     private static native String[] buildArrayProcessesPaths(String jsonResources)/*-{
@@ -71,12 +74,11 @@ public class CalledElementFormProvider implements SelectorDataProvider {
     @SuppressWarnings("unchecked")
     public SelectorData getSelectorData(final FormRenderingContext context) {
         requestProcessDataEvent.fire(new RequestProcessDataEvent());
-        String jsonResourcesPaths = getJsonResourcesPaths();
-        if (jsonResourcesPaths == null) {
-            throw new RuntimeException("Failed get JSON with resources paths");
+        if (getJsonResourcesPaths() != null){
+            String jsonResourcesPaths = getJsonResourcesPaths();
+            String[] arrayProcesses = buildArrayProcessesPaths(jsonResourcesPaths);
+            dataProvider.setProcessIds(Arrays.asList(arrayProcesses));
         }
-        String[] arrayProcesses = buildArrayProcessesPaths(jsonResourcesPaths);
-        dataProvider.setProcessIds(Arrays.asList(arrayProcesses));
         return new SelectorData(toMap(dataProvider.getProcessIds()), null);
     }
 
