@@ -135,7 +135,7 @@ public class ConditionEditorFieldEditorPresenter
         simpleConditionEditor.clear();
         clearError();
         if (value != null) {
-            if (isInDefaultLanguage(value) && isServiceAvailable()) {
+            if (isInDefaultLanguage(value) && isServiceAvailable() && !isComplexExpression(value.getScript())) {
                 if (!isEmpty(value.getScript())) {
                     conditionEditorParsingService
                             .call(value.getScript())
@@ -159,9 +159,19 @@ public class ConditionEditorFieldEditorPresenter
         }
     }
 
+    boolean isComplexExpression(String expression) {
+        return !expression.startsWith("KIE_FUNCTION") || expression.startsWith("!KIE_FUNCTION")
+               || count(expression, "KIE_FUNCTION") > 1;
+    }
+
+    public static int count(String str, String target) {
+        return (str.length() - str.replace(target, "").length()) / target.length();
+    }
+
     void onSimpleConditionSelected() {
         clearError();
-        if (value != null && !isEmpty(value.getScript()) && isServiceAvailable()) {
+        if (value != null && !isEmpty(value.getScript()) && isServiceAvailable() && !isComplexExpression(
+            value.getScript())) {
             conditionEditorParsingService
                     .call(value.getScript())
                     .then(result -> {
