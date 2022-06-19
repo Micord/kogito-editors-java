@@ -160,8 +160,7 @@ public class ConditionEditorFieldEditorPresenter
     }
 
     boolean isComplexExpression(String expression) {
-        return !expression.startsWith("KIE_FUNCTION") || expression.startsWith("!KIE_FUNCTION")
-               || count(expression, "KIE_FUNCTION") > 1;
+        return !expression.startsWith("KIE_FUNCTION") || count(expression, "KIE_FUNCTION") > 1;
     }
 
     public static int count(String str, String target) {
