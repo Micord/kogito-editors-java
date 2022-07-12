@@ -137,7 +137,7 @@ public class ConditionEditorFieldEditorPresenter
         simpleConditionEditor.clear();
         clearError();
         if (value != null) {
-            if (isInDefaultLanguage(value) && isServiceAvailable() && !checkCustomExpression(value.getScript())) {
+            if (isInDefaultLanguage(value) && isServiceAvailable() && !checkOnCustomExpression(value.getScript())) {
                 if (!isEmpty(value.getScript())) {
                     conditionEditorParsingService
                             .call(value.getScript())
@@ -161,7 +161,7 @@ public class ConditionEditorFieldEditorPresenter
         }
     }
 
-    private boolean checkCustomExpression(String expression) {
+    private boolean checkOnCustomExpression(String expression) {
         int negativeExpression = count(expression, "!" + KIE_FUNCTIONS);
         int expressionCount = count(expression, KIE_FUNCTIONS);
         return negativeExpression > 0 || expressionCount != 1 || expression.contains("&&") || expression.contains("||");
@@ -173,7 +173,7 @@ public class ConditionEditorFieldEditorPresenter
 
     void onSimpleConditionSelected() {
         clearError();
-        if (value != null && !isEmpty(value.getScript()) && isServiceAvailable() && !checkCustomExpression(
+        if (value != null && !isEmpty(value.getScript()) && isServiceAvailable() && !checkOnCustomExpression(
             value.getScript())) {
             conditionEditorParsingService
                     .call(value.getScript())
