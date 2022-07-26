@@ -136,7 +136,8 @@ public class ToolboxControlImpl<F extends ToolboxFactory<AbstractCanvasHandler, 
     }-*/;
 
     private static native void clearElementTypeInformation()/*-{
-      parent.parent.nodeElementType = "";
+        parent.parent.nodeElementType = "";
+        parent.parent.proxyElementId.nodeElementId = "";
     }-*/;
 
     public AbstractCanvasHandler getCanvasHandler() {
