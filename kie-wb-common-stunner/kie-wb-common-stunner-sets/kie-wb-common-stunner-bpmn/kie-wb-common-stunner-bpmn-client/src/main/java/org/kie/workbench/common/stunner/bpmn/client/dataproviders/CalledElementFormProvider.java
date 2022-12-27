@@ -51,7 +51,7 @@ public class CalledElementFormProvider implements SelectorDataProvider {
     }
 
     private static native String getJsonResourcesPaths()/*-{
-        if (Object.keys(parent.parent.resourcesPaths).length !== 0) {
+        if (parent.parent.resourcesPaths && Object.keys(parent.parent.resourcesPaths).length !== 0) {
             return parent.parent.resourcesPaths;
         }
         return null;

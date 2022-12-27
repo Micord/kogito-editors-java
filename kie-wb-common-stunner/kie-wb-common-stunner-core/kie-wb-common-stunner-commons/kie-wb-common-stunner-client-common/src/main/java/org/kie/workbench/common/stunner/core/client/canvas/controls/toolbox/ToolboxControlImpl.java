@@ -132,12 +132,18 @@ public class ToolboxControlImpl<F extends ToolboxFactory<AbstractCanvasHandler, 
     }-*/;
 
     private static native void getElementId(String elementId)/*-{
-        parent.parent.proxyElementId.nodeElementId = elementId;
+        if (parent.parent.proxyElementId && parent.parent.proxyElementId.nodeElementId) {
+            parent.parent.proxyElementId.nodeElementId = elementId;
+        }
     }-*/;
 
     private static native void clearElementTypeInformation()/*-{
-        parent.parent.nodeElementType = "";
-        parent.parent.proxyElementId.nodeElementId = "";
+        if (parent.parent.proxyElementId
+            && parent.parent.proxyElementId.nodeElementId
+            && parent.parent.nodeElementType) {
+            parent.parent.nodeElementType = "";
+            parent.parent.proxyElementId.nodeElementId = "";
+        }
     }-*/;
 
     public AbstractCanvasHandler getCanvasHandler() {
