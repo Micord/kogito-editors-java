@@ -113,7 +113,7 @@ public class CallActivityImpl extends ActivityImpl implements CallActivity {
         return key;
       }
     }
-    return null;
+    return newCalledElement;
   }-*/;
 
 	/**
