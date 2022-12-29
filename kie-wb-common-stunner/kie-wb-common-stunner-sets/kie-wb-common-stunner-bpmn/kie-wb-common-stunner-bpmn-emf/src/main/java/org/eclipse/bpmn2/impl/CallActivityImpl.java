@@ -97,24 +97,37 @@ public class CallActivityImpl extends ActivityImpl implements CallActivity {
 	@Override
 	public void setCalledElement(String newCalledElement) {
 		String oldCalledElement = calledElement;
-		calledElement = getProcessIdByPath(newCalledElement);
+		calledElement = getProcessName(newCalledElement);
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Bpmn2Package.CALL_ACTIVITY__CALLED_ELEMENT,
 					oldCalledElement, calledElement));
 	}
 
-  private static native String getProcessIdByPath(String newCalledElement)/*-{
-    var parsedResources = window.parsedResources;
-    for (var key in parsedResources) {
-      if (key === newCalledElement) {
-        return parsedResources[key];
-      }
-      else if (parsedResources[key] === newCalledElement) {
-        return key;
-      }
-    }
+	private String getProcessName(String newCalledElement) {
+		String[] parsedResources = getJsonResourcesPaths();
+		return getProcessNameById(newCalledElement, parsedResources);
+	}
+
+  private static native String getProcessNameById(String newCalledElement, String[] parsedResources)/*-{
+		if (parsedResources) {
+			for (var key in parsedResources) {
+				if (key === newCalledElement) {
+					return parsedResources[key];
+				}
+				else if (parsedResources[key] === newCalledElement) {
+					return key;
+				}
+			}
+		}
     return newCalledElement;
   }-*/;
+
+	private static native String[] getJsonResourcesPaths()/*-{
+		if (parent.parent.resourcesPaths && Object.keys(parent.parent.resourcesPaths).length !== 0) {
+			return JSON.parse(parent.parent.resourcesPaths);
+		}
+		return null;
+	}-*/;
 
 	/**
 	 * <!-- begin-user-doc -->
