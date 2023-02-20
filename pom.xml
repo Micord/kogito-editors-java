@@ -119,7 +119,7 @@
     <module>kie-wb-common-widgets</module>
     <module>kie-wb-common-forms</module>
     <module>kie-wb-common-stunner</module>
-    <module>kie-wb-common-dmn</module>
+<!--    <module>kie-wb-common-dmn</module>-->
     <module>kie-wb-common-kogito</module>
     <module>kogito-editors-js</module>
 
