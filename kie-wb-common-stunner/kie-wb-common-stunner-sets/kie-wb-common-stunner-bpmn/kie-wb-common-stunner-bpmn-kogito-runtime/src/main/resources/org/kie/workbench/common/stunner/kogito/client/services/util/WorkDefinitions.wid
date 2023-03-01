@@ -7,5 +7,14 @@
     "displayName" : "Milestone",
     "icon" : "defaultmilestoneicon.png",
     "category" : "Milestone"
-    ]
+   ]
+   [
+    "name" : "WebBPMTask",
+    "parameters" : [
+        "Condition" : new StringDataType()
+    ],
+    "displayName" : "WebBPMTask",
+    "icon" : "defaultmilestoneicon.png",
+    "category" : "Web-BPMTask"
+   ]
 ]
