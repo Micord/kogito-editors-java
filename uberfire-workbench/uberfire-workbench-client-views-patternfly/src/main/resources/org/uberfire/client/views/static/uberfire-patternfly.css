@@ -284,8 +284,16 @@
  */
 .modal-dialog {
     z-index: 1050;
+    width: fit-content !important;
+    min-width: 80%;
+    max-width: 95%;
+    overflow: auto;
 }
-
+.modal-body {
+    position: relative;
+    padding: 15px;
+    overflow: scroll;
+}
 .uf-navbar-nav-compact {
     font-size: 11px;
 }
