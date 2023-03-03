@@ -13,8 +13,8 @@
     "parameters" : [
         "Condition" : new StringDataType()
     ],
-    "displayName" : "WebBPMTask",
+    "displayName" : "Web-BPM Handler",
     "icon" : "defaultmilestoneicon.png",
-    "category" : "Web-BPMTask"
+    "category" : "WEB-BPM"
    ]
 ]
