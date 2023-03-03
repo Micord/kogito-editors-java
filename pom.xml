@@ -119,9 +119,9 @@
     <module>kie-wb-common-widgets</module>
     <module>kie-wb-common-forms</module>
     <module>kie-wb-common-stunner</module>
-<!--    <module>kie-wb-common-dmn</module>-->
+    <module>kie-wb-common-dmn</module>
     <module>kie-wb-common-kogito</module>
-    <module>kogito-editors-js</module>
+<!--    <module>kogito-editors-js</module>-->
 
     <!-- DROOLS-WB -->
     <module>drools-wb-bom</module>
@@ -295,7 +295,7 @@
       <dependency>
         <groupId>org.kie.kogito</groupId>
         <artifactId>errai-bom</artifactId>
-        <version>8.4.0</version>
+        <version>${project.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -304,7 +304,7 @@
       <dependency>
         <groupId>org.kie.kogito</groupId>
         <artifactId>appformer-bom</artifactId>
-        <version>8.4.0</version>
+        <version>${project.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -313,7 +313,7 @@
       <dependency>
         <groupId>org.kie.kogito</groupId>
         <artifactId>kie-wb-common-bom</artifactId>
-        <version>8.4.0</version>
+        <version>${project.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -322,7 +322,7 @@
       <dependency>
         <groupId>org.kie.kogito</groupId>
         <artifactId>drools-wb-bom</artifactId>
-        <version>8.4.0</version>
+        <version>${project.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
