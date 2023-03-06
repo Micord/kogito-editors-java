@@ -16,6 +16,7 @@
 package com.ait.lienzo.client.widget.panel.impl;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import com.ait.lienzo.client.core.event.AbstractNodeHumanInputEvent;
@@ -41,8 +42,16 @@ import com.ait.lienzo.client.core.event.TouchPoint;
 import com.ait.lienzo.client.core.mediator.Mediators;
 import com.ait.lienzo.client.core.shape.IPrimitive;
 import com.ait.lienzo.client.core.shape.Node;
+import com.ait.lienzo.client.core.shape.PolyLine;
 import com.ait.lienzo.client.core.shape.Shape;
 import com.ait.lienzo.client.core.shape.Viewport;
+import com.ait.lienzo.client.core.shape.wires.IControlHandle;
+import com.ait.lienzo.client.core.shape.wires.WiresConnector;
+import com.ait.lienzo.client.core.shape.wires.handlers.impl.WiresConnectorHandlerImpl;
+import com.ait.lienzo.client.core.shape.wires.handlers.impl.WiresShapeControlUtils;
+import com.ait.lienzo.client.core.types.Point2D;
+import com.ait.lienzo.client.core.types.Point2DArray;
+import com.ait.lienzo.client.core.util.Geometry;
 import com.ait.lienzo.client.widget.DragContext;
 import com.ait.lienzo.client.widget.panel.LienzoPanel;
 import com.ait.lienzo.gwtlienzo.event.shared.EventHandler;
@@ -63,6 +72,8 @@ import elemental2.dom.TouchEvent;
 import elemental2.dom.TouchList;
 import elemental2.dom.UIEvent;
 import jsinterop.base.Js;
+
+import static com.ait.lienzo.client.core.shape.AbstractMultiPointShape.DefaultMultiPointShapeHandleFactory.R1;
 
 public final class LienzoPanelHandlerManager {
 
@@ -101,6 +112,8 @@ public final class LienzoPanelHandlerManager {
     private DragContext m_dragContext;
 
     private List<TouchPoint> m_touches = null;
+
+    private boolean nodeMoveEvent = false;
 
     public LienzoPanelHandlerManager(final LienzoPanel panel) {
         m_lienzo = panel;
@@ -658,13 +671,54 @@ public final class LienzoPanelHandlerManager {
         return findPrimitiveForPredicate(x, y, prim -> prim.isEventHandled(type));
     }
 
+    private static native Consumer<WiresConnectorHandlerImpl.Event> getMouseDownConsumerInstance()/*-{
+        return window.mouseDownEventConsumerInstance;
+    }-*/;
+
+    private static native WiresConnector getWiresConnectorInstance()/*-{
+        return window.wiresConnectorInstance
+    }-*/;
+
+    private int getPointNearTo(final Point2D location, WiresConnector connector) {
+        final Point2DArray linePoints = connector.getLine().getPoint2DArray();
+        for (int i = 0; i < linePoints.size(); i++) {
+            final Point2D point = linePoints.get(i);
+            if (Geometry.distance(location.getX(), location.getY(), point.getX(), point.getY()) < R1) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private void createControlPointAt(int x, int y, WiresConnector connector) {
+        final Point2D location = WiresShapeControlUtils.getViewportRelativeLocation(
+                connector.getGroup().getLayer().getLayer().getViewport(), x, y);
+        int index = getPointNearTo(location, connector);
+        if (index > -1) {
+            final IControlHandle current = connector.getPointHandles().getHandle(index);
+            if (null != current) {
+                current.getControl().setScale(1.5);
+                connector.getGroup().getLayer().getLayer().batch();
+                connector.getGroup().getLayer().getOverLayer().batch();
+            }
+        }
+    }
+
     private final Node<?> findPrimitiveForPredicate(final int x, final int y, final Predicate<Node<?>> pred) {
         NFastArrayList<Node<?>> list = null;
 
         EventPropagationMode stop = EventPropagationMode.LAST_ANCESTOR;
 
         Node<?> node = findShapeAtPoint(x, y);
-
+        if (node instanceof PolyLine && this.nodeMoveEvent) {
+            WiresConnector connector = getWiresConnectorInstance();
+            final Point2D point = WiresShapeControlUtils.getViewportRelativeLocation(
+                    connector.getGroup().getLayer().getLayer().getViewport(), x, y);
+            getMouseDownConsumerInstance().accept(
+                    new WiresConnectorHandlerImpl.Event(point.getX(), point.getY(), false));
+            createControlPointAt(x, y, connector);
+            node = findShapeAtPoint(x, y);
+        }
         while ((null != node) && (null != node.asPrimitive())) {
             if (pred.test(node)) {
                 final EventPropagationMode mode = node.getEventPropagationMode();
@@ -805,8 +859,9 @@ public final class LienzoPanelHandlerManager {
     private final void onNodeMouseMoveTouchMove(final MouseEvent mouseEvent, final TouchEvent touchEvent, int x, int y, final AbstractNodeHumanInputEvent nodeEvent) {
         if (m_dragging_mouse_pressed) {
             if (!m_dragging) {
+                this.nodeMoveEvent = true;
                 doPrepareDragging(x, y, mouseEvent, touchEvent);
-
+                this.nodeMoveEvent = false;
                 if (!m_dragging) {
                     // Don't pick up any draggable objects along the way - LIENZO-88
                     // Not sure about this, it may interfere with deferred mouse click handling

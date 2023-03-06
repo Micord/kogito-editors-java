@@ -94,6 +94,7 @@ public class WiresConnectorHandlerImpl implements WiresConnectorHandler {
         this.m_wiresManager = wiresManager;
         this.mouseClickEventConsumer = mouseClickEventConsumer;
         this.mouseDownEventConsumer = mouseDownEventConsumer;
+        setWiresHandlerInstance(this.mouseDownEventConsumer, this.m_connector);
     }
 
     @Override
@@ -145,11 +146,8 @@ public class WiresConnectorHandlerImpl implements WiresConnectorHandler {
 
     @Override
     public void onNodeMouseDown(final NodeMouseDownEvent event) {
-        ifControlPointsBuilder(builder -> {
-            final Point2D point = WiresShapeControlUtils.getViewportRelativeLocation(getLayer().getViewport(), event);
-            mouseDownEventConsumer.accept(new Event(point.getX(), point.getY(), false));
-            builder.createControlPointAt(event.getX(), event.getY());
-        });
+        //TODO: implementation removed by WEBBPMNEXT-8546
+        // removed ControlPoint creation when MouseDown
     }
 
     @Override
@@ -190,4 +188,9 @@ public class WiresConnectorHandlerImpl implements WiresConnectorHandler {
         }
         return !connector.isDraggable();
     }
+
+    private static native void setWiresHandlerInstance(Consumer<Event> mouseDownEventConsumer, WiresConnector connector)/*-{
+        window.mouseDownEventConsumerInstance = mouseDownEventConsumer;
+        window.wiresConnectorInstance = connector;
+    }-*/;
 }
