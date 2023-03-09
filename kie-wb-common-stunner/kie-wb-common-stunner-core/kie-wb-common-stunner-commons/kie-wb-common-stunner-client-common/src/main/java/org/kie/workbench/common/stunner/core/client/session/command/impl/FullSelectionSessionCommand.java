@@ -51,10 +51,6 @@ public class FullSelectionSessionCommand extends AbstractSelectionAwareSessionCo
 
     private ClipboardControl<Element, AbstractCanvas, ClientSession> clipboardControl;
 
-    public FullSelectionSessionCommand() {
-        this(null, null);
-    }
-
     @Inject
     public FullSelectionSessionCommand(final Event<FullSelectionSessionCommandExecutedEvent> commandExecutedEvent, final SessionManager sessionManager) {
         super(true);
@@ -63,7 +59,6 @@ public class FullSelectionSessionCommand extends AbstractSelectionAwareSessionCo
     }
 
     public static FullSelectionSessionCommand getInstance(SessionManager sessionManager) {
-
         return SessionSingletonCommandsFactory.getInstanceFullSelection(null, sessionManager);
     }
 

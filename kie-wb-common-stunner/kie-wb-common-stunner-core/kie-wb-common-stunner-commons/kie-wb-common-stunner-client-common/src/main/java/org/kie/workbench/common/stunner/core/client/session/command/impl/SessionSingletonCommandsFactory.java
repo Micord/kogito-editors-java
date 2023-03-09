@@ -59,7 +59,7 @@ public class SessionSingletonCommandsFactory {
 
             copySessionInstances.put(sessionManager.getCurrentSession(), (CopySelectionSessionCommand) command);
         } else if (command instanceof FullSelectionSessionCommand) {
-            if (fullSelectionSessionInstances.containsKey(sessionManager.getCurrentSession())) { // there is one already one
+            if (fullSelectionSessionInstances.containsKey(sessionManager.getCurrentSession())) {
                 throw new IllegalStateException("Only one instance of FullSelectionSessionCommand per Client Session can exist");
             }
 
@@ -93,18 +93,13 @@ public class SessionSingletonCommandsFactory {
 
     public static FullSelectionSessionCommand getInstanceFullSelection(final Event<?> commandExecutedEvent,
                                                                        SessionManager sessionManager) {
-
-        final ClientSession currentSession = sessionManager.getCurrentSession();
+        ClientSession currentSession = sessionManager.getCurrentSession();
 
         if (!fullSelectionSessionInstances.containsKey(currentSession)) {
-            final FullSelectionSessionCommand fullSelectionSessionCommand = new FullSelectionSessionCommand((Event<FullSelectionSessionCommandExecutedEvent>) commandExecutedEvent, sessionManager);
-
-            return fullSelectionSessionCommand;
+            return new FullSelectionSessionCommand(
+                    (Event<FullSelectionSessionCommandExecutedEvent>) commandExecutedEvent, sessionManager);
         }
-
-        final FullSelectionSessionCommand fullSelectionSessionCommand = fullSelectionSessionInstances.get(currentSession);
-
-        return fullSelectionSessionCommand;
+        return fullSelectionSessionInstances.get(currentSession);
     }
 
     public static DeleteSelectionSessionCommand getInstanceDelete(

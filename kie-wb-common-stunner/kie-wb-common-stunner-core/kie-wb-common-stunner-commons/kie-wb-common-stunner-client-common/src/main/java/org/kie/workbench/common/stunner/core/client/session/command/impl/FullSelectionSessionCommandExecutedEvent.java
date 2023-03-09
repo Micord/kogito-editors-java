@@ -23,7 +23,6 @@ public class FullSelectionSessionCommandExecutedEvent extends AbstractClientSess
 
     public FullSelectionSessionCommandExecutedEvent(FullSelectionSessionCommand executedCommand,
                                                     EditorSession clientFullSession) {
-        super(executedCommand,
-                clientFullSession);
+        super(executedCommand, clientFullSession);
     }
 }
